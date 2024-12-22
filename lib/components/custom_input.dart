@@ -41,9 +41,10 @@ class _CustomInputState extends State<CustomInput> {
                 color: Theme.of(context).colorScheme.secondary,
                 borderRadius: BorderRadius.all(Radius.circular(15.r))),
             child: Padding(
-              padding: EdgeInsets.only(left: 12.w),
-              child: TextFormField(
+              padding: const EdgeInsets.only(left: 12),
+              child: TextField(
                 obscureText: widget.obscureText,
+                autofocus: false,
                 style: TextStyle(fontSize: 14.r),
                 decoration: const InputDecoration(
                   border: InputBorder.none,
