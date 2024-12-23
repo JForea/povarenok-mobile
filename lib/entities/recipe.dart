@@ -24,7 +24,7 @@ class Recipe {
         'title': String title,
         'description': String description,
         'authorName': String authorName,
-        'category': int categoryID,
+        'categoryID': int categoryID,
         'likes': int likes,
         'time': int time,
       } =>

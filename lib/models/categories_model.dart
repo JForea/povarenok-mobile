@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:povarenok_mobile/entities/category.dart';
 
 class CategoriesModel extends ChangeNotifier {
-  List<JsonCategory> _categories = [
+  final List<JsonCategory> _categories = [
     const JsonCategory(id: 0, title: 'Все рецепты', color: 0x00000000)
   ];
   int currentCategory = 0;

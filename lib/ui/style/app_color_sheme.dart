@@ -5,7 +5,7 @@ const ColorScheme appColorScheme = ColorScheme(
     primary: Color(0xFF7FBF58),
     onPrimary: Colors.white,
     secondary: Color(0xFFE8E8E8),
-    onSecondary: Colors.white,
+    onSecondary: Colors.black,
     error: Colors.red,
     onError: Colors.white,
     surface: Colors.white,
