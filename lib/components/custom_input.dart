@@ -35,23 +35,24 @@ class _CustomInputState extends State<CustomInput> {
             height: 8.h,
           ),
         Container(
-            height: 50.h,
-            width: 260.w,
-            decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.secondary,
-                borderRadius: BorderRadius.all(Radius.circular(15.r))),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 12),
-              child: TextField(
-                obscureText: widget.obscureText,
-                autofocus: false,
-                style: TextStyle(fontSize: 14.r),
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                ),
-                onChanged: widget.onChange,
+          width: 260.w,
+          child: TextField(
+            obscureText: widget.obscureText,
+            style: TextStyle(fontSize: 14.r),
+            decoration: InputDecoration(
+              isDense: true,
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 14, vertical: 10.h),
+              filled: true,
+              fillColor: Theme.of(context).colorScheme.secondary,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(15.r)),
+                borderSide: BorderSide.none,
               ),
-            )),
+            ),
+            onChanged: widget.onChange,
+          ),
+        ),
       ],
     );
   }

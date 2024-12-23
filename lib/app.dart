@@ -12,6 +12,7 @@ class App extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(412, 917),
       builder: (context, child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Шеф-поварёнок',
         theme: appTheme,
         home: AuthorizationPage(),
