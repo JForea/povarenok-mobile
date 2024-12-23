@@ -1,11 +1,11 @@
-import 'dart:math' as math;
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:popover/popover.dart';
+import 'package:povarenok_mobile/ui/components/buttons/category_switcher.dart';
+import 'package:povarenok_mobile/ui/components/custom_appbar.dart';
 import 'package:provider/provider.dart';
 
 import 'package:povarenok_mobile/models/categories_model.dart';
+import 'package:povarenok_mobile/ui/components/buttons/search_button.dart';
 
 class RecipesPage extends StatefulWidget {
   const RecipesPage({super.key});
@@ -17,70 +17,21 @@ class RecipesPage extends StatefulWidget {
 class _RecipesPageState extends State<RecipesPage> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<CategoriesModel>(builder: (context, categories, childe) {
-      if (categories.data.isEmpty) {
+    return Consumer<CategoriesModel>(builder: (context, categories, child) {
+      if (categories.data.length == 1) {
         categories.update();
       }
       return SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).primaryColor,
-            centerTitle: true,
-            toolbarHeight: 70.h,
-            title: Text(
-              'Рецепты',
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontSize: 20.r,
-                  fontWeight: FontWeight.w700),
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: IconButton(
-                  onPressed: () => {},
-                  icon: Icon(
-                    CupertinoIcons.search,
-                    color: Theme.of(context).colorScheme.onPrimary,
-                    size: 32.r,
-                  ),
-                ),
-              ),
-            ],
+          appBar: const CustomAppbar(
+            title: 'Рецепты',
+            actions: [SearchButton()],
           ),
           body: Column(
             children: [
               Padding(
                 padding: EdgeInsets.only(top: 15.h, left: 15.w),
-                child: GestureDetector(
-                  // onTap: () => showPopover(context: context, bodyBuilder: (context) => {
-
-                  // }),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Все рецепты',
-                        // widget.filterOptions[widget.currentFilterOption],
-                        style: TextStyle(
-                          fontSize: 20.r,
-                          color: Theme.of(context).colorScheme.onSurface,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 8),
-                        child: Transform(
-                          alignment: Alignment.center,
-                          transform: Matrix4.rotationX(math.pi),
-                          child: Icon(
-                            CupertinoIcons.triangle_fill,
-                            size: 10.r,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                child: const CategorySwitcher(),
               ),
             ],
           ),

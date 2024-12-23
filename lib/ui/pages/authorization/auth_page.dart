@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:povarenok_mobile/ui/components/custom_input.dart';
-import 'package:povarenok_mobile/ui/components/custom_button.dart';
+import 'package:povarenok_mobile/ui/components/inputs/custom_input.dart';
+import 'package:povarenok_mobile/ui/components/buttons/custom_button.dart';
 import 'package:povarenok_mobile/ui/pages/authorization/registration_page.dart';
 
 class AuthorizationPage extends StatefulWidget {
