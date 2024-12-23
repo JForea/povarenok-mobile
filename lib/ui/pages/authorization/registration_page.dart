@@ -1,28 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:http/http.dart' as http;
 
-import 'package:povarenok_mobile/components/custom_input.dart';
-import 'package:povarenok_mobile/components/custom_button.dart';
-import 'package:povarenok_mobile/pages/authorization/registration_page.dart';
-import 'package:povarenok_mobile/entities/album.dart';
+import 'package:povarenok_mobile/ui/components/custom_input.dart';
+import 'package:povarenok_mobile/ui/components/custom_button.dart';
 
-class AuthorizationPage extends StatefulWidget {
+class RegistrationPage extends StatefulWidget {
+  late String email;
   late String login;
   late String password;
+  late String passwordConfirmation;
 
-  AuthorizationPage({super.key});
-
-  Future<http.Response> _testHttp() {
-    return http.get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
-  }
+  RegistrationPage({super.key});
 
   @override
-  State<AuthorizationPage> createState() => _AuthorizationPageState();
+  State<RegistrationPage> createState() => _RegistrationPageState();
 }
 
-class _AuthorizationPageState extends State<AuthorizationPage> {
+class _RegistrationPageState extends State<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -40,13 +35,23 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                 height: 20.r,
               ),
               Text(
-                'Вход в аккаунт',
+                'Регистрация',
                 style: TextStyle(
                   fontSize: 28.r,
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              SizedBox(height: 110.h),
+              SizedBox(height: 20.h),
+              CustomInput(
+                title: 'Почта',
+                obscureText: false,
+                onChange: (val) => setState(() {
+                  widget.email = val;
+                }),
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
               CustomInput(
                 title: 'Логин',
                 obscureText: false,
@@ -65,11 +70,21 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                 }),
               ),
               SizedBox(
-                height: 110.h,
+                height: 20.h,
+              ),
+              CustomInput(
+                title: 'Подтвердите пароль',
+                obscureText: true,
+                onChange: (val) => setState(() {
+                  widget.passwordConfirmation = val;
+                }),
+              ),
+              SizedBox(
+                height: 30.h,
               ),
               CustomButton(
-                onTap: () => {print(widget._testHttp())},
-                title: 'Войти',
+                onTap: () => {print('tap')},
+                title: 'Зарегистрироваться',
                 border: false,
                 innerColor: Theme.of(context).colorScheme.primary,
               ),
@@ -77,11 +92,8 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                 height: 20.h,
               ),
               CustomButton(
-                onTap: () => {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => RegistrationPage()))
-                },
-                title: 'Регистрация',
+                onTap: () => {Navigator.of(context).pop()},
+                title: 'Вернуться ко входу',
                 border: true,
               ),
             ],

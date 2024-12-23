@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomButton extends StatelessWidget {
   final bool border;
-  Color? innerColor;
+  final Color? innerColor;
   final String title;
   final Function() onTap;
 
-  CustomButton(
+  const CustomButton(
       {super.key,
       this.innerColor,
       required this.onTap,

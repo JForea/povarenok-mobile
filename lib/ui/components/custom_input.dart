@@ -34,7 +34,7 @@ class _CustomInputState extends State<CustomInput> {
           SizedBox(
             height: 8.h,
           ),
-        Container(
+        SizedBox(
           width: 260.w,
           child: TextField(
             obscureText: widget.obscureText,

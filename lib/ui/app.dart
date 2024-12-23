@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:povarenok_mobile/style/app_theme.dart';
-import 'package:povarenok_mobile/pages/authorization/auth_page.dart';
+import 'package:povarenok_mobile/ui/style/app_theme.dart';
+import 'package:povarenok_mobile/ui/pages/authorization/auth_page.dart';
+import 'package:povarenok_mobile/ui/pages/recipes_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -13,9 +14,13 @@ class App extends StatelessWidget {
       designSize: const Size(412, 917),
       builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Шеф-поварёнок',
         theme: appTheme,
-        home: AuthorizationPage(),
+        title: 'Шеф-поварёнок',
+        initialRoute: '/auth',
+        routes: {
+          '/auth': (context) => AuthorizationPage(),
+          '/recipes': (context) => RecipesPage(),
+        },
       ),
     );
   }
