@@ -12,7 +12,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: Theme.of(context).primaryColor,
       centerTitle: true,
-      toolbarHeight: 70.h,
+      iconTheme: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
       title: Text(
         title,
         style: TextStyle(

@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
             child: GNav(
               gap: 16,
               backgroundColor: Theme.of(context).colorScheme.secondary,
-              tabBackgroundColor: Colors.white,
+              tabBackgroundColor: Theme.of(context).colorScheme.surface,
               padding: EdgeInsets.all(16.h),
               tabs: [
                 GButton(

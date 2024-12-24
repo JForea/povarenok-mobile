@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:povarenok_mobile/ui/components/buttons/like_button.dart';
+import 'package:povarenok_mobile/ui/pages/main_pages/chosen_recipe_page.dart';
 import 'package:provider/provider.dart';
 
 import 'package:povarenok_mobile/entities/recipe.dart';
@@ -16,7 +17,12 @@ class RecipeBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     JsonCategory category =
         Provider.of<CategoriesModel>(context).data[recipe.categoryID];
-    return Container(
+    return GestureDetector(
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ChosenRecipePage(
+                recipe: recipe,
+              ))),
+      child: Container(
         height: 130.h,
         width: 380.w,
         decoration: BoxDecoration(
@@ -30,12 +36,16 @@ class RecipeBlock extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(left: 10.r, right: 15),
                   child: Container(
-                    width: 110.h,
-                    height: 110.h,
+                    height: 110.r,
+                    width: 110.r,
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10.r),
-                    ),
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: NetworkImage(
+                            recipe.imageURL,
+                          ),
+                        ),
+                        borderRadius: BorderRadius.circular(10.r)),
                   ),
                 ),
                 Column(
@@ -82,6 +92,8 @@ class RecipeBlock extends StatelessWidget {
               child: LikeButton(number: recipe.likes),
             )
           ],
-        ));
+        ),
+      ),
+    );
   }
 }
