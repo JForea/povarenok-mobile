@@ -31,26 +31,28 @@ class _RecipesPageState extends State<RecipesPage> {
             title: 'Рецепты',
             actions: [SearchButton()],
           ),
-          body: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 15.h, left: 10.w),
-                  child: const CategorySwitcher(),
-                ),
-                Column(
-                  children: List.generate(
-                    recipes.data.length,
-                    (i) => Padding(
-                      padding: EdgeInsets.only(top: 15.h),
-                      child: RecipeBlock(
-                        recipe: recipes.data[i],
+          body: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 15.h, left: 10.w),
+                    child: const CategorySwitcher(),
+                  ),
+                  Column(
+                    children: List.generate(
+                      recipes.data.length,
+                      (i) => Padding(
+                        padding: EdgeInsets.only(top: 15.h),
+                        child: RecipeBlock(
+                          recipe: recipes.data[i],
+                        ),
                       ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         ),

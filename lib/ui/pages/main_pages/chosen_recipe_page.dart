@@ -14,15 +14,17 @@ class ChosenRecipePage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: const CustomAppbar(title: 'Рецепт'),
-        body: Center(
-          child: Padding(
-            padding: EdgeInsets.only(top: 12.r),
-            child: Column(
-              children: [
-                RecipeBlockDetails(
-                  recipe: recipe,
-                ),
-              ],
+        body: SingleChildScrollView(
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.only(top: 12.r),
+              child: Column(
+                children: [
+                  RecipeBlockDetails(
+                    recipe: recipe,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

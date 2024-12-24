@@ -24,7 +24,6 @@ class RecipeBlockDetails extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 10.r, horizontal: 10.r),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               height: 200.h,
@@ -59,12 +58,19 @@ class RecipeBlockDetails extends StatelessWidget {
               ],
             ),
             SizedBox(height: 10.h),
-            Text(
-              'Автор рецепта: ${recipe.authorName}',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onSecondary,
-                fontSize: 12.h,
-                fontWeight: FontWeight.w600,
+            Padding(
+              padding: EdgeInsets.only(left: 8.r),
+              child: Row(
+                children: [
+                  Text(
+                    'Автор рецепта: ${recipe.authorName}',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSecondary,
+                      fontSize: 12.h,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(height: 10.h),
@@ -131,6 +137,21 @@ class RecipeBlockDetails extends StatelessWidget {
                           fontSize: 16.h,
                           fontWeight: FontWeight.w700),
                     ),
+                    for (var ingredient in recipe.ingredients)
+                      Padding(
+                        padding: EdgeInsets.only(top: 8.h),
+                        child: Row(
+                          children: [
+                            Text(
+                              '${ingredient.title}: ${ingredient.quanity}',
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                  fontSize: 14.h),
+                            ),
+                          ],
+                        ),
+                      ),
                   ],
                 ),
               ),
