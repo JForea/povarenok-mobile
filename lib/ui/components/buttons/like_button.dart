@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:cupertino_icons/cupertino_icons.dart';
 
 class LikeButton extends StatelessWidget {
   final int number;

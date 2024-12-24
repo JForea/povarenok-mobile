@@ -64,7 +64,7 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
               ),
               CustomButton(
                 onTap: () =>
-                    {Navigator.of(context).pushReplacementNamed('/recipes')},
+                    {Navigator.of(context).pushReplacementNamed('/home')},
                 title: 'Войти',
                 border: false,
                 innerColor: Theme.of(context).colorScheme.primary,
