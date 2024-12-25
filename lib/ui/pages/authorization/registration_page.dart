@@ -6,18 +6,18 @@ import 'package:povarenok_mobile/ui/components/inputs/custom_input.dart';
 import 'package:povarenok_mobile/ui/components/buttons/custom_button.dart';
 
 class RegistrationPage extends StatefulWidget {
-  late String email;
-  late String login;
-  late String password;
-  late String passwordConfirmation;
-
-  RegistrationPage({super.key});
+  const RegistrationPage({super.key});
 
   @override
   State<RegistrationPage> createState() => _RegistrationPageState();
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
+  String email = '';
+  String login = '';
+  String password = '';
+  String passwordConfirmation = '';
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -45,9 +45,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
               CustomInput(
                 title: 'Почта',
                 obscureText: false,
-                onChange: (val) => setState(() {
-                  widget.email = val;
-                }),
+                onChange: (val) => setState(
+                  () {
+                    email = val;
+                  },
+                ),
               ),
               SizedBox(
                 height: 20.h,
@@ -55,9 +57,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
               CustomInput(
                 title: 'Логин',
                 obscureText: false,
-                onChange: (val) => setState(() {
-                  widget.login = val;
-                }),
+                onChange: (val) => setState(
+                  () {
+                    login = val;
+                  },
+                ),
               ),
               SizedBox(
                 height: 20.h,
@@ -65,9 +69,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
               CustomInput(
                 title: 'Пароль',
                 obscureText: true,
-                onChange: (val) => setState(() {
-                  widget.password = val;
-                }),
+                onChange: (val) => setState(
+                  () {
+                    password = val;
+                  },
+                ),
               ),
               SizedBox(
                 height: 20.h,
@@ -75,9 +81,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
               CustomInput(
                 title: 'Подтвердите пароль',
                 obscureText: true,
-                onChange: (val) => setState(() {
-                  widget.passwordConfirmation = val;
-                }),
+                onChange: (val) => setState(
+                  () {
+                    passwordConfirmation = val;
+                  },
+                ),
               ),
               SizedBox(
                 height: 30.h,
@@ -86,7 +94,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 onTap: () => {print('tap')},
                 title: 'Зарегистрироваться',
                 border: false,
-                innerColor: Theme.of(context).colorScheme.primary,
+                innerColor: true,
               ),
               SizedBox(
                 height: 20.h,
@@ -95,6 +103,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 onTap: () => {Navigator.of(context).pop()},
                 title: 'Вернуться ко входу',
                 border: true,
+                innerColor: false,
               ),
             ],
           ),

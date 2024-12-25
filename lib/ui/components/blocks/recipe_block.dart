@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:povarenok_mobile/ui/components/buttons/like_button.dart';
-import 'package:povarenok_mobile/ui/pages/main_pages/chosen_recipe_page.dart';
+import 'package:povarenok_mobile/ui/pages/recipe_page/chosen_recipe_page.dart';
 import 'package:provider/provider.dart';
 
 import 'package:povarenok_mobile/entities/recipe.dart';

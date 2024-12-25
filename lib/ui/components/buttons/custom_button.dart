@@ -3,13 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomButton extends StatelessWidget {
   final bool border;
-  final Color? innerColor;
+  final bool innerColor;
   final String title;
   final Function() onTap;
 
   const CustomButton(
       {super.key,
-      this.innerColor,
+      required this.innerColor,
       required this.onTap,
       required this.title,
       required this.border});
@@ -29,18 +29,24 @@ class CustomButton extends StatelessWidget {
               width: 290.w,
               decoration: border
                   ? BoxDecoration(
-                      color: innerColor ?? Colors.white,
+                      color: innerColor
+                          ? Theme.of(context).primaryColor
+                          : Colors.transparent,
                       border: Border.all(),
                       borderRadius: BorderRadius.all(Radius.circular(15.r)))
                   : BoxDecoration(
-                      color: innerColor ?? Colors.white,
+                      color: innerColor
+                          ? Theme.of(context).primaryColor
+                          : Colors.transparent,
                       borderRadius: BorderRadius.all(Radius.circular(15.r))),
               child: Center(
                 child: Text(
                   title,
                   style: TextStyle(
                     fontSize: 16.r,
-                    color: innerColor == null ? Colors.black : Colors.white,
+                    color: innerColor
+                        ? Theme.of(context).colorScheme.onPrimary
+                        : Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
               )),
