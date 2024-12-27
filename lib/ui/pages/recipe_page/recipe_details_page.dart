@@ -6,10 +6,10 @@ import 'package:povarenok_mobile/models/categories_model.dart';
 import 'package:povarenok_mobile/ui/components/buttons/like_button.dart';
 import 'package:provider/provider.dart';
 
-class RecipeBlockDetails extends StatelessWidget {
+class RecipeDetailsPage extends StatelessWidget {
   final Recipe recipe;
 
-  const RecipeBlockDetails({super.key, required this.recipe});
+  const RecipeDetailsPage({super.key, required this.recipe});
 
   @override
   Widget build(BuildContext context) {

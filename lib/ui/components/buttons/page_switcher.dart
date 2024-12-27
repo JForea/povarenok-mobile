@@ -3,13 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PageSwitcher extends StatelessWidget {
   final Function() onTap;
-  final int index;
+  final Widget child;
   final bool isActive;
 
   const PageSwitcher(
       {super.key,
       required this.onTap,
-      required this.index,
+      required this.child,
       required this.isActive});
 
   @override
@@ -28,18 +28,13 @@ class PageSwitcher extends StatelessWidget {
                 color: Theme.of(context).primaryColor,
               )
             : BoxDecoration(
-                border:
-                    Border.all(color: Theme.of(context).colorScheme.onSurface),
+                border: Border.all(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    width: 1.3.r),
                 borderRadius: BorderRadius.circular(1000),
               ),
         child: Center(
-          child: Text(
-            '$index',
-            style: TextStyle(
-                color: isActive
-                    ? Theme.of(context).colorScheme.onPrimary
-                    : Theme.of(context).colorScheme.onSurface),
-          ),
+          child: child,
         ),
       ),
     );

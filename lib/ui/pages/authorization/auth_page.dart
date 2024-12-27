@@ -74,7 +74,7 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
               CustomButton(
                 onTap: () => {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => RegistrationPage()))
+                      builder: (context) => const RegistrationPage()))
                 },
                 title: 'Регистрация',
                 border: true,

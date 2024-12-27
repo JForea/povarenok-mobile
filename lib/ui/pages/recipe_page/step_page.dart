@@ -9,12 +9,16 @@ class StepPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        floatingActionButton: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12.r),
-          child: Row(),
-        ),
+    return Container(
+      width: 390.w,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.secondary,
+        borderRadius: BorderRadius.circular(15.r),
+      ),
+      child: Column(
+        children: [
+          Container(),
+        ],
       ),
     );
   }

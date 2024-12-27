@@ -18,7 +18,7 @@ class App extends StatelessWidget {
         title: 'Шеф-поварёнок',
         initialRoute: '/auth',
         routes: {
-          '/auth': (context) => AuthorizationPage(),
+          '/auth': (context) => const AuthorizationPage(),
           '/home': (context) => const HomePage(),
         },
       ),
