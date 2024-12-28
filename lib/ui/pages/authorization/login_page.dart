@@ -67,7 +67,10 @@ class _LoginPageState extends State<LoginPage> {
               CustomButton(
                 onTap: () async {
                   bool loggedIn = await userModel.login(
-                      username: username, password: password);
+                    //username: username, password: password);
+                    username: 'testuser',
+                    password: '12345678',
+                  );
                   if (loggedIn && context.mounted) {
                     Navigator.of(context).pushReplacementNamed('/home');
                   }
@@ -80,9 +83,9 @@ class _LoginPageState extends State<LoginPage> {
                 height: 20.h,
               ),
               CustomButton(
-                onTap: () => {
+                onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const RegistrationPage()))
+                      builder: (context) => const RegistrationPage()));
                 },
                 title: 'Регистрация',
                 border: true,

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:povarenok_mobile/http/models/user_model.dart';
 
 import 'package:povarenok_mobile/ui/components/inputs/custom_input.dart';
 import 'package:povarenok_mobile/ui/components/buttons/custom_button.dart';
+import 'package:provider/provider.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -14,12 +16,13 @@ class RegistrationPage extends StatefulWidget {
 
 class _RegistrationPageState extends State<RegistrationPage> {
   String email = '';
-  String login = '';
+  String username = '';
   String password = '';
   String passwordConfirmation = '';
 
   @override
   Widget build(BuildContext context) {
+    var userModel = Provider.of<UserModel>(context);
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -59,7 +62,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 obscureText: false,
                 onChange: (val) => setState(
                   () {
-                    login = val;
+                    username = val;
                   },
                 ),
               ),
@@ -91,7 +94,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 height: 30.h,
               ),
               CustomButton(
-                onTap: () => {print('tap')},
+                onTap: () async {
+                  bool loggedIn = await userModel.register(
+                    username: username,
+                    password: password,
+                    email: email,
+                  );
+                  if (loggedIn && context.mounted) {
+                    Navigator.of(context).pushReplacementNamed('/home');
+                  }
+                },
                 title: 'Зарегистрироваться',
                 border: false,
                 innerColor: true,

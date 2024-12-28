@@ -1,10 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:povarenok_mobile/entities/user.dart';
 import 'package:povarenok_mobile/http/base_url.dart';
 import 'package:http/http.dart' as http;
 
 class UserModel extends ChangeNotifier {
-  final User _user = User.unauthorized();
+  User _user = User.unauthorized();
 
   Future<bool> login(
       {required String username, required String password}) async {
@@ -16,8 +18,9 @@ class UserModel extends ChangeNotifier {
         await http.post(Uri.parse('$trueURL/api/auth/login'), body: body);
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
-      _user.authorized = true;
-      _user.username = username;
+      _user =
+          User.fromJson(json.decode(utf8.decode(response.bodyBytes))['data']);
+
       notifyListeners();
 
       return true;
@@ -36,11 +39,10 @@ class UserModel extends ChangeNotifier {
       'email': email
     };
     final response =
-        await http.post(Uri.parse('$trueURL/api/auth/login'), body: body);
+        await http.post(Uri.parse('$trueURL/api/auth/register'), body: body);
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
-      _user.authorized = true;
-      _user.username = username;
+      _user = User(email: email, username: username, isAdmin: false);
       notifyListeners();
 
       return true;
