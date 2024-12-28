@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:povarenok_mobile/http/models/user_model.dart';
 
 import 'package:povarenok_mobile/ui/components/inputs/custom_input.dart';
 import 'package:povarenok_mobile/ui/components/buttons/custom_button.dart';
 import 'package:povarenok_mobile/ui/pages/authorization/registration_page.dart';
+import 'package:provider/provider.dart';
 
-class AuthorizationPage extends StatefulWidget {
-  const AuthorizationPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<AuthorizationPage> createState() => _AuthorizationPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _AuthorizationPageState extends State<AuthorizationPage> {
-  String login = '';
+class _LoginPageState extends State<LoginPage> {
+  String username = '';
   String password = '';
 
   @override
   Widget build(BuildContext context) {
+    var userModel = Provider.of<UserModel>(context);
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -45,7 +48,7 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                 title: 'Логин',
                 obscureText: false,
                 onChange: (val) => setState(() {
-                  login = val;
+                  username = val;
                 }),
               ),
               SizedBox(
@@ -62,8 +65,13 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                 height: 110.h,
               ),
               CustomButton(
-                onTap: () =>
-                    {Navigator.of(context).pushReplacementNamed('/home')},
+                onTap: () async {
+                  bool loggedIn = await userModel.login(
+                      username: username, password: password);
+                  if (loggedIn && context.mounted) {
+                    Navigator.of(context).pushReplacementNamed('/home');
+                  }
+                },
                 title: 'Войти',
                 border: false,
                 innerColor: true,

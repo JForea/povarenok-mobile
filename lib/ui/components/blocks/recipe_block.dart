@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 import 'package:povarenok_mobile/entities/recipe.dart';
 import 'package:povarenok_mobile/entities/category.dart';
-import 'package:povarenok_mobile/models/categories_model.dart';
+import 'package:povarenok_mobile/http/models/categories_model.dart';
 
 class RecipeBlock extends StatelessWidget {
   final Recipe recipe;

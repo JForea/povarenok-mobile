@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:povarenok_mobile/ui/pages/home_page.dart';
 
 import 'package:povarenok_mobile/ui/style/app_theme.dart';
-import 'package:povarenok_mobile/ui/pages/authorization/auth_page.dart';
+import 'package:povarenok_mobile/ui/pages/authorization/login_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -18,7 +18,7 @@ class App extends StatelessWidget {
         title: 'Шеф-поварёнок',
         initialRoute: '/auth',
         routes: {
-          '/auth': (context) => const AuthorizationPage(),
+          '/auth': (context) => const LoginPage(),
           '/home': (context) => const HomePage(),
         },
       ),

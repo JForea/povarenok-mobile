@@ -6,7 +6,7 @@ import 'package:popover/popover.dart';
 import 'package:provider/provider.dart';
 
 import 'package:povarenok_mobile/ui/components/menus/categories_menu.dart';
-import 'package:povarenok_mobile/models/categories_model.dart';
+import 'package:povarenok_mobile/http/models/categories_model.dart';
 
 class CategorySwitcher extends StatelessWidget {
   const CategorySwitcher({super.key});

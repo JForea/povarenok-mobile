@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:povarenok_mobile/entities/category.dart';
+import 'package:povarenok_mobile/http/base_url.dart';
 
 class CategoriesModel extends ChangeNotifier {
   final List<JsonCategory> _categories = [
@@ -14,9 +15,8 @@ class CategoriesModel extends ChangeNotifier {
   UnmodifiableListView<JsonCategory> get data =>
       UnmodifiableListView(_categories);
 
-  void update() async {
-    final response = await http.get(
-        Uri.parse('https://66a69c8023b29e17a1a319f4.mockapi.io/categories'));
+  Future<void> update() async {
+    final response = await http.get(Uri.parse('$baseURL/categories'));
 
     if (response.statusCode == 200) {
       _categories.addAll(List<JsonCategory>.from(json

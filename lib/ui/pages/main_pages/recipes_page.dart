@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:povarenok_mobile/models/recipes_model.dart';
+import 'package:povarenok_mobile/http/models/recipes_model.dart';
 import 'package:povarenok_mobile/ui/components/blocks/recipe_block.dart';
 import 'package:povarenok_mobile/ui/components/buttons/category_switcher.dart';
 import 'package:povarenok_mobile/ui/components/custom_appbar.dart';
 import 'package:provider/provider.dart';
 
-import 'package:povarenok_mobile/models/categories_model.dart';
+import 'package:povarenok_mobile/http/models/categories_model.dart';
 import 'package:povarenok_mobile/ui/components/buttons/search_button.dart';
 
 class RecipesPage extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:povarenok_mobile/models/categories_model.dart';
+import 'package:povarenok_mobile/http/models/categories_model.dart';
 import 'package:povarenok_mobile/ui/components/menus/categories_menu_item.dart';
 import 'package:provider/provider.dart';
 
