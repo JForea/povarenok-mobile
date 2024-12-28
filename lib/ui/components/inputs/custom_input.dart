@@ -5,12 +5,15 @@ class CustomInput extends StatefulWidget {
   final String? title;
   final Function(String) onChange;
   final bool obscureText;
+  final FocusNode focusNode;
 
-  const CustomInput(
-      {super.key,
-      this.title,
-      required this.onChange,
-      required this.obscureText});
+  const CustomInput({
+    super.key,
+    this.title,
+    required this.onChange,
+    required this.obscureText,
+    required this.focusNode,
+  });
 
   @override
   State<CustomInput> createState() => _CustomInputState();
@@ -37,6 +40,7 @@ class _CustomInputState extends State<CustomInput> {
         SizedBox(
           width: 260.w,
           child: TextField(
+            focusNode: widget.focusNode,
             obscureText: widget.obscureText,
             style: TextStyle(fontSize: 14.r),
             decoration: InputDecoration(

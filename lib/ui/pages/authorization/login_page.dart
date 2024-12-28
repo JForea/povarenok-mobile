@@ -19,10 +19,20 @@ class _LoginPageState extends State<LoginPage> {
   String username = '';
   String password = '';
 
+  final FocusNode focusUsername = FocusNode();
+  final FocusNode focusPassword = FocusNode();
+
+  void unfocus() {
+    focusUsername.unfocus();
+    focusPassword.unfocus();
+  }
+
   @override
   Widget build(BuildContext context) {
     var userModel = Provider.of<UserModel>(context);
     return SafeArea(
+        child: GestureDetector(
+      onTap: () => unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: Center(
@@ -50,6 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                 onChange: (val) => setState(() {
                   username = val;
                 }),
+                focusNode: focusUsername,
               ),
               SizedBox(
                 height: 20.h,
@@ -60,6 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                 onChange: (val) => setState(() {
                   password = val;
                 }),
+                focusNode: focusPassword,
               ),
               SizedBox(
                 height: 110.h,
@@ -84,6 +96,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               CustomButton(
                 onTap: () {
+                  unfocus();
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const RegistrationPage()));
                 },
@@ -95,6 +108,6 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
-    );
+    ));
   }
 }
