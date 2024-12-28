@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:povarenok_mobile/ui/pages/authorization/registration_page.dart';
 import 'package:povarenok_mobile/ui/pages/home_page.dart';
 
 import 'package:povarenok_mobile/ui/style/app_theme.dart';
@@ -16,9 +17,10 @@ class App extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: appTheme,
         title: 'Шеф-поварёнок',
-        initialRoute: '/auth',
+        initialRoute: '/auth/login',
         routes: {
-          '/auth': (context) => const LoginPage(),
+          '/auth/login': (context) => const LoginPage(),
+          '/auth/register': (context) => const RegistrationPage(),
           '/home': (context) => const HomePage(),
         },
       ),

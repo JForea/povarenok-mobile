@@ -132,7 +132,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 CustomButton(
                   onTap: () {
                     unfocus();
-                    Navigator.of(context).pop();
+                    Navigator.of(context).pushReplacementNamed('/auth/login');
                   },
                   title: 'Вернуться ко входу',
                   border: true,

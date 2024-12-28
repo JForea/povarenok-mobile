@@ -20,6 +20,19 @@ class CustomInput extends StatefulWidget {
 }
 
 class _CustomInputState extends State<CustomInput> {
+  final _myFocusNotifier = ValueNotifier<bool>(false);
+
+  void _onFocusChange() {
+    _myFocusNotifier.value = widget.focusNode.hasFocus;
+  }
+
+  @override
+  initState() {
+    super.initState();
+
+    widget.focusNode.addListener(_onFocusChange);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -39,23 +52,29 @@ class _CustomInputState extends State<CustomInput> {
           ),
         SizedBox(
           width: 260.w,
-          child: TextField(
-            focusNode: widget.focusNode,
-            obscureText: widget.obscureText,
-            style: TextStyle(fontSize: 14.r),
-            decoration: InputDecoration(
-              isDense: true,
-              contentPadding:
-                  EdgeInsets.symmetric(horizontal: 14, vertical: 10.h),
-              filled: true,
-              fillColor: Theme.of(context).colorScheme.secondary,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(15.r)),
-                borderSide: BorderSide.none,
-              ),
-            ),
-            onChanged: widget.onChange,
-          ),
+          child: ValueListenableBuilder(
+              valueListenable: _myFocusNotifier,
+              builder: (_, isFocused, child) {
+                return TextField(
+                  focusNode: widget.focusNode,
+                  obscureText: widget.obscureText,
+                  style: TextStyle(fontSize: 14.r),
+                  decoration: InputDecoration(
+                    isDense: true,
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 14, vertical: 10.h),
+                    filled: true,
+                    fillColor: isFocused
+                        ? Theme.of(context).colorScheme.secondaryFixed
+                        : Theme.of(context).colorScheme.secondary,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.r)),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                  onChanged: widget.onChange,
+                );
+              }),
         ),
       ],
     );

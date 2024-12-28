@@ -5,7 +5,6 @@ import 'package:povarenok_mobile/http/models/user_model.dart';
 
 import 'package:povarenok_mobile/ui/components/inputs/custom_input.dart';
 import 'package:povarenok_mobile/ui/components/buttons/custom_button.dart';
-import 'package:povarenok_mobile/ui/pages/authorization/registration_page.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -19,8 +18,8 @@ class _LoginPageState extends State<LoginPage> {
   String username = '';
   String password = '';
 
-  final FocusNode focusUsername = FocusNode();
-  final FocusNode focusPassword = FocusNode();
+  late FocusNode focusUsername = FocusNode();
+  late FocusNode focusPassword = FocusNode();
 
   void unfocus() {
     focusUsername.unfocus();
@@ -97,8 +96,7 @@ class _LoginPageState extends State<LoginPage> {
               CustomButton(
                 onTap: () {
                   unfocus();
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const RegistrationPage()));
+                  Navigator.of(context).pushReplacementNamed('/auth/register');
                 },
                 title: 'Регистрация',
                 border: true,

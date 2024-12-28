@@ -31,9 +31,7 @@ class RecipeDetailsPage extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.fill,
-                  image: NetworkImage(
-                    recipe.imageURL,
-                  ),
+                  image: NetworkImage(recipe.imageURL),
                 ),
                 borderRadius: BorderRadius.circular(15.r),
               ),
@@ -145,9 +143,9 @@ class RecipeDetailsPage extends StatelessWidget {
                             Text(
                               '${ingredient.title}: ${ingredient.quanity}',
                               style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface,
-                                  fontSize: 14.h),
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontSize: 14.h,
+                              ),
                             ),
                           ],
                         ),
