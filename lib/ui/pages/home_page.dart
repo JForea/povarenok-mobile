@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:povarenok_mobile/ui/pages/main_pages/profile_page.dart';
 
 import 'package:povarenok_mobile/ui/pages/main_pages/recipes_page.dart';
 
@@ -17,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> screens = [
     const RecipesPage(),
     const Placeholder(),
-    const Placeholder(),
+    const ProfilePage(),
   ];
 
   @override

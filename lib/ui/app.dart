@@ -17,7 +17,7 @@ class App extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: appTheme,
         title: 'Шеф-поварёнок',
-        initialRoute: '/auth/login',
+        initialRoute: '/home',
         routes: {
           '/auth/login': (context) => const LoginPage(),
           '/auth/register': (context) => const RegistrationPage(),

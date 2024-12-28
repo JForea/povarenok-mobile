@@ -28,7 +28,7 @@ class _RecipesPageState extends State<RecipesPage> {
       return SafeArea(
         child: Scaffold(
           appBar: const CustomAppbar(
-            title: 'Рецепты',
+            title: 'Шеф-поварёнок',
             actions: [SearchButton()],
           ),
           body: SingleChildScrollView(
