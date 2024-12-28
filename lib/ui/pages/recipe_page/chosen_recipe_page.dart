@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:povarenok_mobile/entities/recipe.dart';
-import 'package:povarenok_mobile/ui/components/buttons/page_switcher.dart';
 import 'package:povarenok_mobile/ui/components/custom_appbar.dart';
 import 'package:povarenok_mobile/ui/components/sliders/page_slider.dart';
 import 'package:povarenok_mobile/ui/pages/recipe_page/recipe_details_page.dart';
@@ -41,7 +40,7 @@ class _ChosenRecipePageState extends State<ChosenRecipePage> {
       recipe: widget.recipe,
     ));
     for (var step in widget.recipe.steps) {
-      pages.add(StepPage(step: step));
+      pages.add(StepPage(recipeTitle: widget.recipe.title, step: step));
     }
   }
 
