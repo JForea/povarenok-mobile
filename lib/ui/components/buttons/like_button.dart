@@ -14,7 +14,7 @@ class LikeButton extends StatelessWidget {
         children: [
           Icon(
             CupertinoIcons.heart,
-            size: 20.r,
+            size: 24.r,
           ),
         ],
       ),

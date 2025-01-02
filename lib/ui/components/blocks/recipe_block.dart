@@ -3,11 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:povarenok_mobile/http/models/recipes_model.dart';
 import 'package:povarenok_mobile/ui/components/buttons/like_button.dart';
 import 'package:povarenok_mobile/ui/pages/recipe_page/chosen_recipe_page.dart';
-import 'package:provider/provider.dart';
 
 import 'package:povarenok_mobile/entities/recipe.dart';
-import 'package:povarenok_mobile/entities/category.dart';
-import 'package:povarenok_mobile/http/models/categories_model.dart';
 
 class RecipeBlock extends StatelessWidget {
   final Recipe recipe;
@@ -91,7 +88,7 @@ class RecipeBlock extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: EdgeInsets.only(top: 93.h, left: 300.w),
+              padding: EdgeInsets.only(top: 93.h, left: 340.w),
               child: const LikeButton(),
             )
           ],

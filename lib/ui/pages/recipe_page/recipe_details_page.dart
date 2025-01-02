@@ -40,6 +40,7 @@ class RecipeDetailsPage extends StatelessWidget {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
+                SizedBox(width: 5.w),
                 const Expanded(
                   flex: 1,
                   child: LikeButton(),
@@ -138,16 +139,56 @@ class RecipeDetailsPage extends StatelessWidget {
                         padding: EdgeInsets.only(top: 8.h),
                         child: Row(
                           children: [
-                            Text(
-                              '${ingredient.name}: ${ingredient.count}',
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.onSurface,
-                                fontSize: 14.h,
+                            Flexible(
+                              child: Text(
+                                '${ingredient.name}: ${ingredient.count}',
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                  fontSize: 14.h,
+                                ),
+                                maxLines: 2,
                               ),
                             ),
                           ],
                         ),
                       ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 10.h),
+            Container(
+              width: 370.w,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                borderRadius: BorderRadius.circular(15.r),
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+                child: Column(
+                  children: [
+                    Text(
+                      'Приготовление',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
+                          fontSize: 16.h,
+                          fontWeight: FontWeight.w700),
+                    ),
+                    SizedBox(height: 8.h),
+                    Row(
+                      children: [
+                        Flexible(
+                          child: Text(
+                            recipe.manual,
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface,
+                              fontSize: 14.h,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
