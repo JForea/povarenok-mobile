@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:popover/popover.dart';
+import 'package:povarenok_mobile/http/models/categories_model.dart';
 import 'package:provider/provider.dart';
 
 import 'package:povarenok_mobile/ui/components/menus/categories_menu.dart';
-import 'package:povarenok_mobile/http/models/categories_model.dart';
+import 'package:povarenok_mobile/entities/category.dart';
 
 class CategorySwitcher extends StatelessWidget {
   const CategorySwitcher({super.key});
@@ -23,7 +24,7 @@ class CategorySwitcher extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            categoriesModel.data[categoriesModel.currentCategory].title,
+            categories[categoriesModel.currentCategory],
             style: TextStyle(
               fontSize: 20.r,
               color: Theme.of(context).colorScheme.onSurface,

@@ -1,59 +1,58 @@
 import 'package:povarenok_mobile/entities/Ingredient.dart';
-import 'package:povarenok_mobile/entities/recipe_step.dart';
+import 'package:povarenok_mobile/entities/user.dart';
 
 class Recipe {
   final int id;
-  final String title;
-  final String imageURL;
+  final String name;
+  final String img;
   final String description;
-  final String authorName;
+  final String manual;
   final int categoryID;
-  final int likes;
+  //final int likes;
   final int time;
   final List<Ingredient> ingredients;
-  final List<RecipeStep> steps;
+  final User author;
 
-  const Recipe(
-      {required this.id,
-      required this.title,
-      required this.imageURL,
-      required this.description,
-      required this.authorName,
-      required this.categoryID,
-      required this.likes,
-      required this.time,
-      required this.ingredients,
-      required this.steps});
+  const Recipe({
+    required this.id,
+    required this.name,
+    required this.img,
+    required this.description,
+    required this.manual,
+    required this.categoryID,
+    //required this.likes,
+    required this.time,
+    required this.ingredients,
+    required this.author,
+  });
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
     return switch (json) {
       {
         'id': int id,
-        'title': String title,
-        'imageURL': String imageURL,
+        'name': String name,
+        'category': int category,
+        'img': String img,
         'description': String description,
-        'authorName': String authorName,
-        'categoryID': int categoryID,
-        'likes': int likes,
+        'manual': String manual,
         'time': int time,
         'ingredients': List<dynamic> ingredients,
-        'steps': List<dynamic> steps,
+        'author': dynamic author,
+        //'likes': int likes,
       } =>
         Recipe(
           id: id,
-          title: title,
-          imageURL: imageURL,
+          name: name,
+          img: img,
           description: description,
-          authorName: authorName,
-          categoryID: categoryID,
-          likes: likes,
+          manual: manual,
+          author: User.authorFromJson(author as Map<String, dynamic>),
+          categoryID: category,
+          //likes: likes,
           time: time,
           ingredients: ingredients
               .map((ingredient) =>
                   Ingredient.fromJson(ingredient as Map<String, dynamic>))
-              .toList(),
-          steps: steps
-              .map((step) => RecipeStep.fromJson(step as Map<String, dynamic>))
               .toList(),
         ),
       _ => throw const FormatException('Failed to load recipe.'),

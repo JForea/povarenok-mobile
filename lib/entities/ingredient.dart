@@ -1,21 +1,21 @@
 class Ingredient {
-  final String title;
-  final String quanity;
+  final String name;
+  final String count;
 
   const Ingredient({
-    required this.title,
-    required this.quanity,
+    required this.name,
+    required this.count,
   });
 
   factory Ingredient.fromJson(Map<String, dynamic> json) {
     return switch (json) {
       {
-        'title': String title,
-        'quanity': String quanity,
+        'name': String name,
+        'count': String count,
       } =>
         Ingredient(
-          title: title,
-          quanity: quanity,
+          name: name,
+          count: count,
         ),
       _ => throw const FormatException('Failed to load ingredient.'),
     };

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:povarenok_mobile/http/models/recipes_model.dart';
 import 'package:povarenok_mobile/ui/components/buttons/like_button.dart';
 import 'package:povarenok_mobile/ui/pages/recipe_page/chosen_recipe_page.dart';
 import 'package:provider/provider.dart';
@@ -15,8 +16,6 @@ class RecipeBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    JsonCategory category =
-        Provider.of<CategoriesModel>(context).data[recipe.categoryID];
     return GestureDetector(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => ChosenRecipePage(
@@ -42,7 +41,7 @@ class RecipeBlock extends StatelessWidget {
                         image: DecorationImage(
                           fit: BoxFit.fill,
                           image: NetworkImage(
-                            recipe.imageURL,
+                            recipe.img,
                           ),
                         ),
                         borderRadius: BorderRadius.circular(10.r)),
@@ -54,7 +53,7 @@ class RecipeBlock extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(top: 9.h),
                       child: Text(
-                        recipe.title,
+                        recipe.name,
                         style: TextStyle(
                           fontSize: 14.h,
                           fontWeight: FontWeight.w700,
@@ -63,10 +62,14 @@ class RecipeBlock extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      category.title,
+                      idCategory[recipe.categoryID] != null
+                          ? idCategory[recipe.categoryID]!.title
+                          : '',
                       style: TextStyle(
                         fontSize: 12.h,
-                        color: Color(category.color),
+                        color: Color(idCategory[recipe.categoryID] != null
+                            ? idCategory[recipe.categoryID]!.color
+                            : 0),
                       ),
                     ),
                     SizedBox(height: 8.h),
@@ -89,7 +92,7 @@ class RecipeBlock extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(top: 93.h, left: 300.w),
-              child: LikeButton(number: recipe.likes),
+              child: const LikeButton(),
             )
           ],
         ),

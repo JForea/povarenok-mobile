@@ -8,20 +8,14 @@ class JsonCategory {
     required this.title,
     required this.color,
   });
-
-  factory JsonCategory.fromJson(Map<String, dynamic> json) {
-    return switch (json) {
-      {
-        'id': int id,
-        'title': String title,
-        'color': String color,
-      } =>
-        JsonCategory(
-          id: id,
-          title: title,
-          color: int.parse('FF$color', radix: 16),
-        ),
-      _ => throw const FormatException('Failed to load category.'),
-    };
-  }
 }
+
+final List<String> categories = [
+  'Все рецепты',
+  'Салат',
+  'Первое блюдо',
+  'Второе блюдо',
+  'Десерт',
+  'Выпечка',
+  'Закуска',
+];

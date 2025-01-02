@@ -1,4 +1,5 @@
 class User {
+  int? id;
   String username = '';
   String email = '';
   bool isAdmin = false;
@@ -6,7 +7,11 @@ class User {
 
   User.unauthorized();
 
-  User({required this.email, required this.isAdmin, required this.username}) {
+  User(
+      {required this.email,
+      required this.isAdmin,
+      required this.username,
+      this.id}) {
     isAuthorized = true;
   }
 
@@ -18,6 +23,24 @@ class User {
         'isAdmin': bool isAdmin,
       } =>
         User(
+          username: username,
+          email: email,
+          isAdmin: isAdmin,
+        ),
+      _ => throw const FormatException('Failed to load user.'),
+    };
+  }
+
+  factory User.authorFromJson(Map<String, dynamic> json) {
+    return switch (json) {
+      {
+        'id': int id,
+        'username': String username,
+        'email': String email,
+        'admin': bool isAdmin,
+      } =>
+        User(
+          id: id,
           username: username,
           email: email,
           isAdmin: isAdmin,

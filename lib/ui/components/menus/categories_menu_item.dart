@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:povarenok_mobile/entities/category.dart';
 import 'package:povarenok_mobile/http/models/recipes_model.dart';
 import 'package:provider/provider.dart';
 
@@ -17,15 +18,14 @@ class CategoriesMenuItem extends StatelessWidget {
     return GestureDetector(
       onTap: () => {
         categoriesModel.switchCategory(categoryID),
-        recipesModel
-            .update(categoriesModel.data[categoriesModel.currentCategory].id),
+        recipesModel.update(categoriesModel.currentCategory),
         Navigator.of(context).pop(),
       },
       child: SizedBox(
         width: 200.w,
         height: 60.h,
         child: Center(
-          child: Text(categoriesModel.data[categoryID].title),
+          child: Text(categories[categoryID]),
         ),
       ),
     );

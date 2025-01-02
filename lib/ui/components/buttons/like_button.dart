@@ -2,9 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LikeButton extends StatelessWidget {
-  final int number;
-
-  const LikeButton({super.key, required this.number});
+  const LikeButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +15,6 @@ class LikeButton extends StatelessWidget {
           Icon(
             CupertinoIcons.heart,
             size: 20.r,
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 4.w, top: 3.5.h),
-            child: Text(
-              '$number',
-              style: TextStyle(fontSize: 13.h, fontWeight: FontWeight.w500),
-            ),
           ),
         ],
       ),

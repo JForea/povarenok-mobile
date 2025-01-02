@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:povarenok_mobile/http/models/categories_model.dart';
 import 'package:povarenok_mobile/http/models/recipes_model.dart';
 import 'package:povarenok_mobile/ui/components/blocks/recipe_block.dart';
 import 'package:povarenok_mobile/ui/components/buttons/category_switcher.dart';
 import 'package:povarenok_mobile/ui/components/custom_appbar.dart';
 import 'package:provider/provider.dart';
 
-import 'package:povarenok_mobile/http/models/categories_model.dart';
 import 'package:povarenok_mobile/ui/components/buttons/search_button.dart';
 
 class RecipesPage extends StatefulWidget {
@@ -19,12 +19,9 @@ class RecipesPage extends StatefulWidget {
 class _RecipesPageState extends State<RecipesPage> {
   @override
   Widget build(BuildContext context) {
-    return Consumer2<CategoriesModel, RecipesModel>(
-        builder: (context, categories, recipes, child) {
-      if (categories.data.length == 1) {
-        categories.update();
-        recipes.update(categories.data[categories.currentCategory].id);
-      }
+    return Consumer2<RecipesModel, CategoriesModel>(
+        builder: (context, recipes, categories, child) {
+      recipes.update(categories.currentCategory);
       return SafeArea(
         child: Scaffold(
           appBar: const CustomAppbar(

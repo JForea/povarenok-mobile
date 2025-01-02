@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:povarenok_mobile/entities/category.dart';
 import 'package:povarenok_mobile/entities/recipe.dart';
-import 'package:povarenok_mobile/http/models/categories_model.dart';
+import 'package:povarenok_mobile/http/models/recipes_model.dart';
 import 'package:povarenok_mobile/ui/components/buttons/like_button.dart';
-import 'package:provider/provider.dart';
 
 class RecipeDetailsPage extends StatelessWidget {
   final Recipe recipe;
@@ -13,8 +12,7 @@ class RecipeDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    JsonCategory category =
-        Provider.of<CategoriesModel>(context).data[recipe.categoryID];
+    JsonCategory category = idCategory[recipe.categoryID]!;
     return Container(
       width: 390.w,
       decoration: BoxDecoration(
@@ -31,7 +29,7 @@ class RecipeDetailsPage extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.fill,
-                  image: NetworkImage(recipe.imageURL),
+                  image: NetworkImage(recipe.img),
                 ),
                 borderRadius: BorderRadius.circular(15.r),
               ),
@@ -42,9 +40,9 @@ class RecipeDetailsPage extends StatelessWidget {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Expanded(
+                const Expanded(
                   flex: 1,
-                  child: LikeButton(number: recipe.likes),
+                  child: LikeButton(),
                 ),
                 Text(
                   category.title,
@@ -61,7 +59,7 @@ class RecipeDetailsPage extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    'Автор рецепта: ${recipe.authorName}',
+                    'Автор рецепта: ${recipe.author.username}',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onSecondary,
                       fontSize: 12.h,
@@ -83,7 +81,7 @@ class RecipeDetailsPage extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      recipe.title,
+                      recipe.name,
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.onSurface,
                           fontSize: 16.h,
@@ -141,7 +139,7 @@ class RecipeDetailsPage extends StatelessWidget {
                         child: Row(
                           children: [
                             Text(
-                              '${ingredient.title}: ${ingredient.quanity}',
+                              '${ingredient.name}: ${ingredient.count}',
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.onSurface,
                                 fontSize: 14.h,
