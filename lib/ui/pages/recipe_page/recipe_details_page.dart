@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:povarenok_mobile/entities/category.dart';
@@ -23,15 +24,13 @@ class RecipeDetailsPage extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 10.r, horizontal: 10.r),
         child: Column(
           children: [
-            Container(
-              height: 200.h,
-              width: 370.w,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: NetworkImage(recipe.img),
-                ),
-                borderRadius: BorderRadius.circular(15.r),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(15.r),
+              child: CachedNetworkImage(
+                imageUrl: recipe.img,
+                fit: BoxFit.fill,
+                height: 200.h,
+                width: 370.w,
               ),
             ),
             SizedBox(
@@ -147,7 +146,6 @@ class RecipeDetailsPage extends StatelessWidget {
                                       Theme.of(context).colorScheme.onSurface,
                                   fontSize: 14.h,
                                 ),
-                                maxLines: 2,
                               ),
                             ),
                           ],

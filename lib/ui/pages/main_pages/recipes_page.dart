@@ -21,7 +21,9 @@ class _RecipesPageState extends State<RecipesPage> {
   Widget build(BuildContext context) {
     return Consumer2<RecipesModel, CategoriesModel>(
         builder: (context, recipes, categories, child) {
-      recipes.update(categories.currentCategory);
+      if (!recipes.loaded) {
+        recipes.update(categories.currentCategory);
+      }
       return SafeArea(
         child: Scaffold(
           appBar: const CustomAppbar(

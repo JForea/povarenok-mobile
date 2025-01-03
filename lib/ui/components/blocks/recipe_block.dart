@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:povarenok_mobile/http/models/recipes_model.dart';
@@ -31,17 +32,14 @@ class RecipeBlock extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.only(left: 10.r, right: 15),
-                  child: Container(
-                    height: 110.r,
-                    width: 110.r,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage(
-                            recipe.img,
-                          ),
-                        ),
-                        borderRadius: BorderRadius.circular(10.r)),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.r),
+                    child: CachedNetworkImage(
+                      imageUrl: recipe.img,
+                      fit: BoxFit.fill,
+                      height: 110.r,
+                      width: 110.r,
+                    ),
                   ),
                 ),
                 Column(

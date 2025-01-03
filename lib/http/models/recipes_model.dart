@@ -20,6 +20,7 @@ Map<int, JsonCategory> idCategory = {
 class RecipesModel extends ChangeNotifier {
   List<Recipe> _recipesAll = [];
   List<Recipe> _recipes = [];
+  bool loaded = false;
 
   UnmodifiableListView<Recipe> get data => UnmodifiableListView(_recipes);
 
@@ -46,6 +47,7 @@ class RecipesModel extends ChangeNotifier {
           .decode(utf8.decode(response.bodyBytes))['data']
           .map((x) => Recipe.fromJson(x))).toList();
       _syncWithCategory(categoryID);
+      loaded = true;
       notifyListeners();
     }
   }
