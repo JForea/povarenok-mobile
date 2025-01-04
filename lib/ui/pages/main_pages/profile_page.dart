@@ -18,6 +18,11 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Consumer<UserModel>(
       builder: (context, user, child) {
+        final ts = TextStyle(
+          color: Theme.of(context).colorScheme.onSurface,
+          fontSize: 16.h,
+          fontWeight: FontWeight.w500,
+        );
         if (user.data.isAuthorized && !user.data.infoUpdated) {
           user.updateProfileInfo();
         }
@@ -27,15 +32,21 @@ class _ProfilePageState extends State<ProfilePage> {
             body: user.data.isAuthorized
                 ? Column(
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Имя пользователя:'),
-                          Text(user.data.username),
-                          Text('Всего рецептов создано:'),
-                          Text('${user.data.recipes.length}'),
-                        ],
-                      )
+                      Padding(
+                        padding: EdgeInsets.only(left: 18.w, top: 18.h),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Имя пользователя:', style: ts),
+                            SizedBox(height: 12.h),
+                            Text(user.data.username, style: ts),
+                            SizedBox(height: 24.h),
+                            Text('Всего рецептов создано:', style: ts),
+                            SizedBox(height: 12.h),
+                            Text('${user.data.recipes.length}', style: ts),
+                          ],
+                        ),
+                      ),
                     ],
                   )
                 : Center(

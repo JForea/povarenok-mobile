@@ -25,6 +25,8 @@ class UserModel extends ChangeNotifier {
           User.fromJson(json.decode(utf8.decode(response.bodyBytes))['data']);
       _user.isAuthorized = true;
 
+      _user.token = response.headers['set-cookie'] ?? '';
+
       notifyListeners();
 
       return true;
@@ -47,6 +49,8 @@ class UserModel extends ChangeNotifier {
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
       _user = User(email: email, username: username, isAdmin: false);
+      _user.token = response.headers['set-cookie'] ?? '';
+
       notifyListeners();
 
       return true;
@@ -56,19 +60,19 @@ class UserModel extends ChangeNotifier {
   }
 
   Future<bool> updateProfileInfo() async {
-    final response = await http.get(Uri.parse('$trueURL/api/user/profile'));
+    Map<String, String> headers = {'Cookie': _user.token};
+    final response = await http.get(Uri.parse('$trueURL/api/user/profile'),
+        headers: headers);
+    print(response.statusCode);
     if (response.statusCode >= 200 && response.statusCode < 300) {
       var jsonData = json.decode(utf8.decode(response.bodyBytes))['data'];
 
-      jsonData['recipes']
-          .map((recipe) => Recipe.fromJson(recipe as Map<String, dynamic>))
-          .toList()
-          .map((r) => _user.recipes.add(r.id));
-      notifyListeners();
-      jsonData['favourites']
-          .map((recipe) => Recipe.fromJson(recipe as Map<String, dynamic>))
-          .toList()
-          .map((r) => _user.favourites.add(r.id));
+      for (var r in jsonData['recipes']) {
+        _user.recipes.add(r['id'] as int);
+      }
+      for (var r in jsonData['favourites']) {
+        _user.favourites.add(r['id'] as int);
+      }
 
       _user.infoUpdated = true;
 

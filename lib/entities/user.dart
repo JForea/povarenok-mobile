@@ -4,6 +4,9 @@ class User {
   String email = '';
   List<int> favourites = [];
   List<int> recipes = [];
+
+  String token = '';
+
   bool isAdmin = false;
   bool isAuthorized = false;
   bool infoUpdated = false;
@@ -15,8 +18,6 @@ class User {
     required this.isAdmin,
     required this.username,
     this.id,
-    this.favourites = const [],
-    this.recipes = const [],
   }) {
     isAuthorized = true;
   }
