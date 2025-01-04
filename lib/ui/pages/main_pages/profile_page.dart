@@ -72,8 +72,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         SizedBox(height: 120.h),
                         CustomButton(
                           border: false,
-                          onTap: () =>
-                              Navigator.of(context).pushNamed('/auth/login'),
+                          onTap: () => Navigator.of(context)
+                              .pushReplacementNamed('/auth/login'),
                           innerColor: true,
                           title: 'Авторизоваться',
                         ),
