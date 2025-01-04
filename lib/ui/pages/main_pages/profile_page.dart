@@ -17,55 +17,61 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Consumer<UserModel>(
-      builder: (context, user, child) => SafeArea(
-        child: Scaffold(
-          appBar: const CustomAppbar(title: 'Шеф-поварёнок'),
-          body: user.data.isAuthorized
-              ? Column(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Имя пользователя:'),
-                        Text(user.data.username),
-                        Text('Всего рецептов создано:'),
-                      ],
-                    )
-                  ],
-                )
-              : Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+      builder: (context, user, child) {
+        if (user.data.isAuthorized && !user.data.infoUpdated) {
+          user.updateProfileInfo();
+        }
+        return SafeArea(
+          child: Scaffold(
+            appBar: const CustomAppbar(title: 'Шеф-поварёнок'),
+            body: user.data.isAuthorized
+                ? Column(
                     children: [
-                      SizedBox(height: 60.h),
-                      SvgPicture.asset(
-                        'assets/icons/sad.svg',
-                        height: 240.h,
-                      ),
-                      SizedBox(height: 60.h),
-                      Text(
-                        'Для получения доступа ко всем возможностям сервиса необходимо авторизоваться.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurface,
-                          fontSize: 18.h,
-                          fontWeight: FontWeight.w500,
-                          height: 2.h,
-                        ),
-                      ),
-                      SizedBox(height: 120.h),
-                      CustomButton(
-                        border: false,
-                        onTap: () =>
-                            Navigator.of(context).pushNamed('/auth/login'),
-                        innerColor: true,
-                        title: 'Авторизоваться',
-                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Имя пользователя:'),
+                          Text(user.data.username),
+                          Text('Всего рецептов создано:'),
+                          Text('${user.data.recipes.length}'),
+                        ],
+                      )
                     ],
+                  )
+                : Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 60.h),
+                        SvgPicture.asset(
+                          'assets/icons/sad.svg',
+                          height: 240.h,
+                        ),
+                        SizedBox(height: 60.h),
+                        Text(
+                          'Для получения доступа ко всем возможностям сервиса необходимо авторизоваться.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                            fontSize: 18.h,
+                            fontWeight: FontWeight.w500,
+                            height: 2.h,
+                          ),
+                        ),
+                        SizedBox(height: 120.h),
+                        CustomButton(
+                          border: false,
+                          onTap: () =>
+                              Navigator.of(context).pushNamed('/auth/login'),
+                          innerColor: true,
+                          title: 'Авторизоваться',
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

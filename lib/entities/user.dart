@@ -2,16 +2,22 @@ class User {
   int? id;
   String username = '';
   String email = '';
+  List<int> favourites = [];
+  List<int> recipes = [];
   bool isAdmin = false;
   bool isAuthorized = false;
+  bool infoUpdated = false;
 
   User.unauthorized();
 
-  User(
-      {required this.email,
-      required this.isAdmin,
-      required this.username,
-      this.id}) {
+  User({
+    required this.email,
+    required this.isAdmin,
+    required this.username,
+    this.id,
+    this.favourites = const [],
+    this.recipes = const [],
+  }) {
     isAuthorized = true;
   }
 
