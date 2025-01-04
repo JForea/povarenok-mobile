@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:povarenok_mobile/http/models/recipes_model.dart';
+import 'package:povarenok_mobile/http/models/user_model.dart';
 import 'package:povarenok_mobile/ui/components/blocks/recipe_block.dart';
 import 'package:povarenok_mobile/ui/components/buttons/category_switcher.dart';
 import 'package:provider/provider.dart';
@@ -17,8 +18,8 @@ class RecipeList extends StatefulWidget {
 class _RecipeListState extends State<RecipeList> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<RecipesModel>(
-      builder: (context, recipes, child) {
+    return Consumer2<RecipesModel, UserModel>(
+      builder: (context, recipes, user, child) {
         return SingleChildScrollView(
           child: Center(
             child: Column(

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:povarenok_mobile/entities/recipe.dart';
 import 'package:povarenok_mobile/entities/user.dart';
 import 'package:povarenok_mobile/http/base_url.dart';
 import 'package:http/http.dart' as http;
@@ -63,7 +62,6 @@ class UserModel extends ChangeNotifier {
     Map<String, String> headers = {'Cookie': _user.token};
     final response = await http.get(Uri.parse('$trueURL/api/user/profile'),
         headers: headers);
-    print(response.statusCode);
     if (response.statusCode >= 200 && response.statusCode < 300) {
       var jsonData = json.decode(utf8.decode(response.bodyBytes))['data'];
 
@@ -81,6 +79,23 @@ class UserModel extends ChangeNotifier {
     }
 
     return false;
+  }
+
+  Future<void> addToFavourite(int id) async {
+    Map<String, String> headers = {'Cookie': _user.token};
+    final response = await http
+        .post(Uri.parse('$trueURL/api/recipe/$id/favourite'), headers: headers);
+
+    print(response.statusCode);
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      if (_user.favourites.contains(id)) {
+        _user.favourites.remove(id);
+      } else {
+        _user.favourites.add(id);
+      }
+
+      notifyListeners();
+    }
   }
 
   //Future<void> logout() {}

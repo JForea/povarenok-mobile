@@ -87,7 +87,7 @@ class RecipeBlock extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(top: 93.h, left: 340.w),
-              child: const LikeButton(),
+              child: LikeButton(recipe.id),
             )
           ],
         ),

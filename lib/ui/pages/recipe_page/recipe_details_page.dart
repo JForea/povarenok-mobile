@@ -40,9 +40,9 @@ class RecipeDetailsPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(width: 5.w),
-                const Expanded(
+                Expanded(
                   flex: 1,
-                  child: LikeButton(),
+                  child: LikeButton(recipe.id),
                 ),
                 Text(
                   category.title,
