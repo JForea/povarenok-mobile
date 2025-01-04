@@ -8,6 +8,8 @@ import 'package:http/http.dart' as http;
 class UserModel extends ChangeNotifier {
   User _user = User.unauthorized();
 
+  User get data => _user;
+
   Future<bool> login(
       {required String username, required String password}) async {
     final Map<String, String> body = {
@@ -20,6 +22,7 @@ class UserModel extends ChangeNotifier {
     if (response.statusCode >= 200 && response.statusCode < 300) {
       _user =
           User.fromJson(json.decode(utf8.decode(response.bodyBytes))['data']);
+      _user.isAuthorized = true;
 
       notifyListeners();
 

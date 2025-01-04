@@ -41,11 +41,11 @@ class _RecipesPageState extends State<RecipesPage> {
                   ),
                   Column(
                     children: List.generate(
-                      recipes.data.length,
+                      recipes.recipeIds.length,
                       (i) => Padding(
                         padding: EdgeInsets.only(top: 15.h),
                         child: RecipeBlock(
-                          recipe: recipes.data[i],
+                          recipe: recipes.getRecipe(recipes.recipeIds[i])!,
                         ),
                       ),
                     ),

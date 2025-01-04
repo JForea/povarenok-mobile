@@ -18,20 +18,25 @@ Map<int, JsonCategory> idCategory = {
 };
 
 class RecipesModel extends ChangeNotifier {
-  List<Recipe> _recipesAll = [];
-  List<Recipe> _recipes = [];
+  Map<int, Recipe> _recipesAll = {};
+  List<int> _recipeIdsAll = [];
+  List<int> _recipeIds = [];
   bool loaded = false;
 
-  UnmodifiableListView<Recipe> get data => UnmodifiableListView(_recipes);
+  UnmodifiableListView<int> get recipeIds => UnmodifiableListView(_recipeIds);
+
+  Recipe? getRecipe(int id) {
+    return _recipesAll[id];
+  }
 
   void _syncWithCategory(int categoryID) {
     if (categoryID == 0) {
-      _recipes = _recipesAll;
+      _recipeIds = _recipeIdsAll;
     } else {
-      _recipes.clear();
-      for (var r in _recipesAll) {
-        if (r.categoryID == categoryID) {
-          _recipes.add(r);
+      _recipeIds.clear();
+      for (var i in _recipeIdsAll) {
+        if (_recipesAll[i]!.categoryID == categoryID) {
+          _recipeIds.add(i);
         }
       }
     }
@@ -43,9 +48,15 @@ class RecipesModel extends ChangeNotifier {
     final response = await http.get(Uri.parse(req));
 
     if (response.statusCode == 200) {
-      _recipesAll = List<Recipe>.from(json
+      List<Recipe> recipes = List<Recipe>.from(json
           .decode(utf8.decode(response.bodyBytes))['data']
           .map((x) => Recipe.fromJson(x))).toList();
+
+      for (var r in recipes) {
+        _recipeIdsAll.add(r.id);
+        _recipesAll[r.id] = r;
+      }
+
       _syncWithCategory(categoryID);
       loaded = true;
       notifyListeners();
