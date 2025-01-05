@@ -31,7 +31,8 @@ class RecipesModel extends ChangeNotifier {
 
   void _syncWithCategory(int categoryID) {
     if (categoryID == 0) {
-      _recipeIds = _recipeIdsAll;
+      _recipeIds.clear();
+      _recipeIds.addAll(_recipeIdsAll);
     } else {
       _recipeIds.clear();
       for (var i in _recipeIdsAll) {
