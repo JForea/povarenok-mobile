@@ -65,8 +65,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   ),
                   SizedBox(height: 20.h),
                   CustomInput(
+                    width: 260.w,
                     title: 'Почта',
                     obscureText: false,
+                    expands: false,
                     onChange: (val) => setState(
                       () {
                         email = val;
@@ -78,8 +80,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     height: 20.h,
                   ),
                   CustomInput(
+                    width: 260.w,
                     title: 'Логин',
                     obscureText: false,
+                    expands: false,
                     onChange: (val) => setState(
                       () {
                         username = val;
@@ -91,8 +95,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     height: 20.h,
                   ),
                   CustomInput(
+                    width: 260.w,
                     title: 'Пароль',
                     obscureText: true,
+                    expands: false,
                     onChange: (val) => setState(
                       () {
                         password = val;
@@ -104,8 +110,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     height: 20.h,
                   ),
                   CustomInput(
+                    width: 260.w,
                     title: 'Подтвердите пароль',
                     obscureText: true,
+                    expands: false,
                     onChange: (val) => setState(
                       () {
                         passwordConfirmation = val;

@@ -31,7 +31,9 @@ class _FavouritePageState extends State<FavouritePage> {
               title: 'Шеф-поварёнок',
               actions: [SearchButton()],
             ),
-            body: RecipeList(recipeIds: user.data.favourites),
+            body: SingleChildScrollView(
+              child: RecipeList(recipeIds: user.data.favourites),
+            ),
           ),
         );
       },

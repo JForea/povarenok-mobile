@@ -59,8 +59,10 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(height: 110.h),
                   CustomInput(
+                    width: 260.w,
                     title: 'Логин',
                     obscureText: false,
+                    expands: false,
                     onChange: (val) => setState(() {
                       username = val;
                     }),
@@ -70,8 +72,10 @@ class _LoginPageState extends State<LoginPage> {
                     height: 20.h,
                   ),
                   CustomInput(
+                    width: 260.w,
                     title: 'Пароль',
                     obscureText: true,
+                    expands: false,
                     onChange: (val) => setState(() {
                       password = val;
                     }),

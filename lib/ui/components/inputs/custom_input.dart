@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomInput extends StatefulWidget {
@@ -6,13 +7,19 @@ class CustomInput extends StatefulWidget {
   final Function(String) onChange;
   final bool obscureText;
   final FocusNode focusNode;
+  final double width;
+  final bool expands;
+  final TextInputType? keyboardType;
 
   const CustomInput({
     super.key,
-    this.title,
     required this.onChange,
     required this.obscureText,
     required this.focusNode,
+    required this.expands,
+    required this.width,
+    this.keyboardType,
+    this.title,
   });
 
   @override
@@ -51,7 +58,7 @@ class _CustomInputState extends State<CustomInput> {
             height: 8.h,
           ),
         SizedBox(
-          width: 260.w,
+          width: widget.width,
           child: ValueListenableBuilder(
               valueListenable: _myFocusNotifier,
               builder: (_, isFocused, child) {
@@ -59,6 +66,11 @@ class _CustomInputState extends State<CustomInput> {
                   focusNode: widget.focusNode,
                   obscureText: widget.obscureText,
                   style: TextStyle(fontSize: 14.r),
+                  maxLines: widget.expands ? null : 1,
+                  keyboardType: widget.keyboardType,
+                  inputFormatters: widget.keyboardType == TextInputType.number
+                      ? [FilteringTextInputFormatter.allow(RegExp('[0-9]'))]
+                      : [],
                   decoration: InputDecoration(
                     isDense: true,
                     contentPadding:

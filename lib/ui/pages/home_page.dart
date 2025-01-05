@@ -6,6 +6,7 @@ import 'package:povarenok_mobile/ui/pages/main_pages/favourite_page.dart';
 import 'package:povarenok_mobile/ui/pages/main_pages/profile_page.dart';
 
 import 'package:povarenok_mobile/ui/pages/main_pages/recipes_page.dart';
+import 'package:povarenok_mobile/ui/pages/main_pages/redactor_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,6 +20,7 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> screens = [
     const RecipesPage(),
     const FavouritePage(),
+    const RedactorPage(),
     const ProfilePage(),
   ];
 
@@ -52,10 +54,17 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 GButton(
+                  icon: CupertinoIcons.create,
+                  text: 'Редактор',
+                  onPressed: () => setState(
+                    () => currentIndex = 2,
+                  ),
+                ),
+                GButton(
                   icon: CupertinoIcons.person,
                   text: 'Профиль',
                   onPressed: () => setState(
-                    () => currentIndex = 2,
+                    () => currentIndex = 3,
                   ),
                 ),
               ],

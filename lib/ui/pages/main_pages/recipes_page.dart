@@ -28,7 +28,9 @@ class _RecipesPageState extends State<RecipesPage> {
               title: 'Шеф-поварёнок',
               actions: [SearchButton()],
             ),
-            body: RecipeList(recipeIds: recipes.recipeIds),
+            body: SingleChildScrollView(
+              child: RecipeList(recipeIds: recipes.recipeIds),
+            ),
           ),
         );
       },
