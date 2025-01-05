@@ -1,8 +1,8 @@
 class Ingredient {
-  final String name;
-  final String count;
+  String name;
+  String count;
 
-  const Ingredient({
+  Ingredient({
     required this.name,
     required this.count,
   });

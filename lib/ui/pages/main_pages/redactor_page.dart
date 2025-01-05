@@ -1,8 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:povarenok_mobile/entities/ingredient.dart';
 import 'package:povarenok_mobile/ui/components/custom_appbar.dart';
 import 'package:povarenok_mobile/ui/components/inputs/custom_input.dart';
+
+class IngredientInput {
+  Ingredient ingredient;
+  FocusNode focusName = FocusNode();
+  FocusNode focusCount = FocusNode();
+
+  IngredientInput(this.ingredient);
+}
 
 class RedactorPage extends StatefulWidget {
   const RedactorPage({super.key});
@@ -17,6 +26,7 @@ class _RedactorPageState extends State<RedactorPage> {
   String description = '';
   int? time;
   String manual = '';
+  List<IngredientInput> ingredientInputs = [];
 
   FocusNode focusName = FocusNode();
   FocusNode focusUrl = FocusNode();
@@ -30,6 +40,10 @@ class _RedactorPageState extends State<RedactorPage> {
     focusDescription.unfocus();
     focusTime.unfocus();
     focusManual.unfocus();
+    for (var ing in ingredientInputs) {
+      ing.focusName.unfocus();
+      ing.focusCount.unfocus();
+    }
   }
 
   @override
@@ -109,9 +123,13 @@ class _RedactorPageState extends State<RedactorPage> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      SizedBox(width: 12.w),
+                      SizedBox(width: 6.w),
                       TextButton.icon(
-                        onPressed: () {},
+                        onPressed: () => setState(
+                          () => ingredientInputs.add(
+                            IngredientInput(Ingredient(name: '', count: '')),
+                          ),
+                        ),
                         label: Icon(
                           CupertinoIcons.add,
                           size: 28.r,
@@ -123,6 +141,49 @@ class _RedactorPageState extends State<RedactorPage> {
                       ),
                     ],
                   ),
+                  for (var ingredientInput in ingredientInputs)
+                    Padding(
+                      padding: EdgeInsets.only(top: 12.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          CustomInput(
+                            title: 'Название',
+                            onChange: (s) =>
+                                ingredientInput.ingredient.name = s,
+                            obscureText: false,
+                            focusNode: ingredientInput.focusName,
+                            expands: false,
+                            width: 160.w,
+                          ),
+                          SizedBox(width: 10.w),
+                          CustomInput(
+                            title: 'Количество',
+                            onChange: (s) =>
+                                ingredientInput.ingredient.count = s,
+                            obscureText: false,
+                            focusNode: ingredientInput.focusCount,
+                            expands: false,
+                            width: 160.w,
+                          ),
+                          SizedBox(width: 5.w),
+                          TextButton.icon(
+                            onPressed: () => setState(
+                              () => ingredientInputs.remove(ingredientInput),
+                            ),
+                            label: Icon(
+                              CupertinoIcons.trash,
+                              size: 26.r,
+                            ),
+                            style: TextButton.styleFrom(
+                              minimumSize: Size.zero,
+                              fixedSize: Size.fromRadius(28.r),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   SizedBox(height: 18.h),
                   CustomInput(
                     width: 390.w,
@@ -132,6 +193,7 @@ class _RedactorPageState extends State<RedactorPage> {
                     expands: true,
                     focusNode: focusManual,
                   ),
+                  SizedBox(height: 12.h),
                 ],
               ),
             ),
