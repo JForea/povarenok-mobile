@@ -13,7 +13,7 @@ class RecipeDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    JsonCategory category = idCategory[recipe.categoryID]!;
+    JsonCategory category = idCategory[recipe.category]!;
     return Container(
       width: 390.w,
       decoration: BoxDecoration(
@@ -42,7 +42,7 @@ class RecipeDetailsPage extends StatelessWidget {
                 SizedBox(width: 5.w),
                 Expanded(
                   flex: 1,
-                  child: LikeButton(recipe.id),
+                  child: LikeButton(recipe.id!),
                 ),
                 Text(
                   category.title,
@@ -59,7 +59,7 @@ class RecipeDetailsPage extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    'Автор рецепта: ${recipe.author.username}',
+                    'Автор рецепта: ${recipe.author!.username}',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onSecondary,
                       fontSize: 12.h,

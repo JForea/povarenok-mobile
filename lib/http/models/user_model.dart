@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:povarenok_mobile/entities/recipe.dart';
 import 'package:povarenok_mobile/entities/user.dart';
 import 'package:povarenok_mobile/http/base_url.dart';
 import 'package:http/http.dart' as http;
@@ -96,6 +97,25 @@ class UserModel extends ChangeNotifier {
 
       notifyListeners();
     }
+  }
+
+  Future<bool> addRecipe(Recipe recipe) async {
+    var body = recipe.toJson();
+    print(body['ingredients']);
+    Map<String, String> headers = {'Cookie': _user.token};
+    var response = await http.post(
+      Uri.parse('$trueURL/api/recipe'),
+      body: body,
+      headers: headers,
+    );
+
+    print(response.statusCode);
+
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return true;
+    }
+
+    return false;
   }
 
   //Future<void> logout() {}

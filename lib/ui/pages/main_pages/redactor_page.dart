@@ -2,8 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:povarenok_mobile/entities/ingredient.dart';
+import 'package:povarenok_mobile/entities/recipe.dart';
+import 'package:povarenok_mobile/http/models/categories_model.dart';
+import 'package:povarenok_mobile/http/models/recipes_model.dart';
+import 'package:povarenok_mobile/http/models/user_model.dart';
+import 'package:povarenok_mobile/ui/components/buttons/custom_button.dart';
 import 'package:povarenok_mobile/ui/components/custom_appbar.dart';
 import 'package:povarenok_mobile/ui/components/inputs/custom_input.dart';
+import 'package:provider/provider.dart';
 
 class IngredientInput {
   Ingredient ingredient;
@@ -21,11 +27,7 @@ class RedactorPage extends StatefulWidget {
 }
 
 class _RedactorPageState extends State<RedactorPage> {
-  String name = '';
-  String url = '';
-  String description = '';
-  int? time;
-  String manual = '';
+  Recipe recipe = Recipe.create();
   List<IngredientInput> ingredientInputs = [];
 
   FocusNode focusName = FocusNode();
@@ -48,6 +50,9 @@ class _RedactorPageState extends State<RedactorPage> {
 
   @override
   Widget build(BuildContext context) {
+    var userModel = Provider.of<UserModel>(context);
+    var recipesModel = Provider.of<RecipesModel>(context);
+    var categoriesModel = Provider.of<CategoriesModel>(context);
     return SafeArea(
       child: GestureDetector(
         onTap: () => unfocus(),
@@ -72,7 +77,7 @@ class _RedactorPageState extends State<RedactorPage> {
                   CustomInput(
                     width: 390.w,
                     title: 'Название',
-                    onChange: (s) => name = s,
+                    onChange: (s) => recipe.name = s,
                     obscureText: false,
                     expands: false,
                     focusNode: focusName,
@@ -81,7 +86,7 @@ class _RedactorPageState extends State<RedactorPage> {
                   CustomInput(
                     width: 390.w,
                     title: 'Ссылка на изображение',
-                    onChange: (s) => url = s,
+                    onChange: (s) => recipe.img = s,
                     obscureText: false,
                     expands: false,
                     focusNode: focusUrl,
@@ -90,7 +95,7 @@ class _RedactorPageState extends State<RedactorPage> {
                   CustomInput(
                     width: 390.w,
                     title: 'Описание',
-                    onChange: (s) => description = s,
+                    onChange: (s) => recipe.description = s,
                     obscureText: false,
                     expands: true,
                     focusNode: focusDescription,
@@ -101,9 +106,9 @@ class _RedactorPageState extends State<RedactorPage> {
                     title: 'Время приготовления',
                     onChange: (s) {
                       if (s.isNotEmpty) {
-                        time = int.parse(s);
+                        recipe.time = int.parse(s);
                       } else {
-                        time = null;
+                        recipe.time = null;
                       }
                     },
                     obscureText: false,
@@ -188,12 +193,27 @@ class _RedactorPageState extends State<RedactorPage> {
                   CustomInput(
                     width: 390.w,
                     title: 'Способ приготовления',
-                    onChange: (s) => manual = s,
+                    onChange: (s) => recipe.manual = s,
                     obscureText: false,
                     expands: true,
                     focusNode: focusManual,
                   ),
-                  SizedBox(height: 12.h),
+                  SizedBox(height: 36.h),
+                  CustomButton(
+                    innerColor: true,
+                    onTap: () async {
+                      List<Ingredient> ingredients = [];
+                      for (var ingredientInput in ingredientInputs) {
+                        ingredients.add(ingredientInput.ingredient);
+                      }
+                      recipe.ingredients = ingredients;
+                      await userModel.addRecipe(recipe);
+                      recipesModel.update(categoriesModel.currentCategory);
+                    },
+                    title: 'Создать',
+                    border: false,
+                  ),
+                  SizedBox(height: 36.h),
                 ],
               ),
             ),

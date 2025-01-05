@@ -29,8 +29,8 @@ class _RecipeListState extends State<RecipeList> {
                   padding: EdgeInsets.only(top: 15.h, left: 10.w),
                   child: const CategorySwitcher(),
                 ),
-                Column(
-                  children: List.generate(
+                Column(children: [
+                  for (var r in List.generate(
                     widget.recipeIds.length,
                     (i) => Padding(
                       padding: EdgeInsets.only(top: 15.h),
@@ -38,8 +38,10 @@ class _RecipeListState extends State<RecipeList> {
                         recipe: recipes.getRecipe(widget.recipeIds[i])!,
                       ),
                     ),
-                  ),
-                )
+                  ))
+                    r,
+                  SizedBox(height: 12.h),
+                ])
               ],
             ),
           ),

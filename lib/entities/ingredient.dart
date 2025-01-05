@@ -20,4 +20,11 @@ class Ingredient {
       _ => throw const FormatException('Failed to load ingredient.'),
     };
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'count': count,
+    };
+  }
 }

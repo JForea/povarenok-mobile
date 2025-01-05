@@ -35,7 +35,7 @@ class RecipesModel extends ChangeNotifier {
     } else {
       _recipeIds.clear();
       for (var i in _recipeIdsAll) {
-        if (_recipesAll[i]!.categoryID == categoryID) {
+        if (_recipesAll[i]!.category == categoryID) {
           _recipeIds.add(i);
         }
       }
@@ -47,14 +47,16 @@ class RecipesModel extends ChangeNotifier {
 
     final response = await http.get(Uri.parse(req));
 
-    if (response.statusCode == 200) {
+    if (response.statusCode >= 200 && response.statusCode < 300) {
       List<Recipe> recipes = List<Recipe>.from(json
           .decode(utf8.decode(response.bodyBytes))['data']
           .map((x) => Recipe.fromJson(x))).toList();
 
+      _recipesAll.clear();
+      _recipeIdsAll.clear();
       for (var r in recipes) {
-        _recipeIdsAll.add(r.id);
-        _recipesAll[r.id] = r;
+        _recipeIdsAll.add(r.id!);
+        _recipesAll[r.id!] = r;
       }
 
       _syncWithCategory(categoryID);

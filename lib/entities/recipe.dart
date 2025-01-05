@@ -1,30 +1,34 @@
-import 'package:povarenok_mobile/entities/Ingredient.dart';
+import 'dart:convert';
+
+import 'package:povarenok_mobile/entities/ingredient.dart';
 import 'package:povarenok_mobile/entities/user.dart';
 
 class Recipe {
-  final int id;
-  final String name;
-  final String img;
-  final String description;
-  final String manual;
-  final int categoryID;
+  int? id;
+  String name = '';
+  String img = '';
+  String description = '';
+  String manual = '';
+  int category = 0;
   //final int likes;
-  final int time;
-  final List<Ingredient> ingredients;
-  final User author;
+  int? time;
+  List<Ingredient> ingredients = [];
+  User? author;
 
-  const Recipe({
+  Recipe({
     required this.id,
     required this.name,
     required this.img,
     required this.description,
     required this.manual,
-    required this.categoryID,
+    required this.category,
     //required this.likes,
     required this.time,
     required this.ingredients,
     required this.author,
   });
+
+  Recipe.create();
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
     return switch (json) {
@@ -47,7 +51,7 @@ class Recipe {
           description: description,
           manual: manual,
           author: User.authorFromJson(author as Map<String, dynamic>),
-          categoryID: category,
+          category: category,
           //likes: likes,
           time: time,
           ingredients: ingredients
@@ -56,6 +60,19 @@ class Recipe {
               .toList(),
         ),
       _ => throw const FormatException('Failed to load recipe.'),
+    };
+  }
+
+  Map<String, String> toJson() {
+    return {
+      'name': name,
+      'category': category.toString(),
+      'img': img,
+      'description': description,
+      if (time != null) 'time': time.toString(),
+      'manual': manual,
+      'ingredients': json.encode(
+          ingredients.map((ingredient) => ingredient.toJson()).toList()),
     };
   }
 }

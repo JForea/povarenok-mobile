@@ -57,13 +57,13 @@ class RecipeBlock extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      idCategory[recipe.categoryID] != null
-                          ? idCategory[recipe.categoryID]!.title
+                      idCategory[recipe.category] != null
+                          ? idCategory[recipe.category]!.title
                           : '',
                       style: TextStyle(
                         fontSize: 12.h,
-                        color: Color(idCategory[recipe.categoryID] != null
-                            ? idCategory[recipe.categoryID]!.color
+                        color: Color(idCategory[recipe.category] != null
+                            ? idCategory[recipe.category]!.color
                             : 0),
                       ),
                     ),
@@ -87,7 +87,7 @@ class RecipeBlock extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(top: 93.h, left: 340.w),
-              child: LikeButton(recipe.id),
+              child: LikeButton(recipe.id!),
             )
           ],
         ),
