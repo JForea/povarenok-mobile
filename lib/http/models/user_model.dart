@@ -87,7 +87,6 @@ class UserModel extends ChangeNotifier {
     final response = await http
         .post(Uri.parse('$trueURL/api/recipe/$id/favourite'), headers: headers);
 
-    print(response.statusCode);
     if (response.statusCode >= 200 && response.statusCode < 300) {
       if (_user.favourites.contains(id)) {
         _user.favourites.remove(id);
@@ -101,7 +100,6 @@ class UserModel extends ChangeNotifier {
 
   Future<bool> addRecipe(Recipe recipe) async {
     var body = recipe.toJson();
-    print(body['ingredients']);
     Map<String, String> headers = {'Cookie': _user.token};
     var response = await http.post(
       Uri.parse('$trueURL/api/recipe'),
@@ -109,13 +107,19 @@ class UserModel extends ChangeNotifier {
       headers: headers,
     );
 
-    print(response.statusCode);
-
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return true;
     }
 
     return false;
+  }
+
+  Future<void> deleteRecipe(int recipeId) async {
+    Map<String, String> headers = {'Cookie': _user.token};
+    await http.delete(
+      Uri.parse('$trueURL/api/recipe/$recipeId'),
+      headers: headers,
+    );
   }
 
   //Future<void> logout() {}

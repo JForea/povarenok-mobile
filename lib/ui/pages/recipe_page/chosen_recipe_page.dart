@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:povarenok_mobile/entities/recipe.dart';
+import 'package:povarenok_mobile/http/models/user_model.dart';
+import 'package:povarenok_mobile/ui/components/buttons/delete_button.dart';
 import 'package:povarenok_mobile/ui/components/custom_appbar.dart';
 import 'package:povarenok_mobile/ui/pages/recipe_page/recipe_details_page.dart';
+import 'package:provider/provider.dart';
 
 class ChosenRecipePage extends StatefulWidget {
   final Recipe recipe;
@@ -29,9 +32,16 @@ class _ChosenRecipePageState extends State<ChosenRecipePage> {
 
   @override
   Widget build(BuildContext context) {
+    var userModel = Provider.of<UserModel>(context);
     return SafeArea(
       child: Scaffold(
-        appBar: const CustomAppbar(title: 'Рецепт'),
+        appBar: CustomAppbar(
+          title: 'Рецепт',
+          actions: [
+            if (userModel.data.username == widget.recipe.author!.username)
+              DeleteButton(recipeId: widget.recipe.id!)
+          ],
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 12.h),
