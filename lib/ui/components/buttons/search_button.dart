@@ -8,7 +8,7 @@ class SearchButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () => {},
+      onPressed: () {},
       icon: Icon(
         CupertinoIcons.search,
         color: Theme.of(context).colorScheme.onPrimary,
