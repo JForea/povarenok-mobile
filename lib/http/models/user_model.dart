@@ -21,8 +21,13 @@ class UserModel extends ChangeNotifier {
         await http.post(Uri.parse('$baseURL/api/auth/login'), body: body);
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
-      _user =
-          User.fromJson(json.decode(utf8.decode(response.bodyBytes))['data']);
+      var jsonData = json.decode(utf8.decode(response.bodyBytes));
+
+      if (jsonData['status'] == 'error') {
+        return false;
+      }
+
+      _user = User.fromJson(jsonData['data']);
       _user.isAuthorized = true;
 
       _user.token = response.headers['set-cookie'] ?? '';
@@ -48,6 +53,12 @@ class UserModel extends ChangeNotifier {
         await http.post(Uri.parse('$baseURL/api/auth/register'), body: body);
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
+      var jsonData = json.decode(utf8.decode(response.bodyBytes));
+
+      if (jsonData['status'] == 'error') {
+        return false;
+      }
+
       _user = User(email: email, username: username, isAdmin: false);
       _user.token = response.headers['set-cookie'] ?? '';
 

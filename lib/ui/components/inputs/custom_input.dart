@@ -4,20 +4,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomInput extends StatefulWidget {
   final String? title;
-  final Function(String) onChange;
+  final String? errorMessage;
   final bool obscureText;
   final FocusNode focusNode;
   final double width;
   final bool expands;
   final TextInputType? keyboardType;
+  final TextEditingController controller;
 
   const CustomInput({
     super.key,
-    required this.onChange,
+    this.errorMessage,
     required this.obscureText,
     required this.focusNode,
     required this.expands,
     required this.width,
+    required this.controller,
     this.keyboardType,
     this.title,
   });
@@ -59,11 +61,13 @@ class _CustomInputState extends State<CustomInput> {
           ),
         SizedBox(
           width: widget.width,
+          height: 65.h,
           child: ValueListenableBuilder(
               valueListenable: _myFocusNotifier,
               builder: (_, isFocused, child) {
-                return TextField(
+                return TextFormField(
                   focusNode: widget.focusNode,
+                  controller: widget.controller,
                   obscureText: widget.obscureText,
                   style: TextStyle(fontSize: 14.r),
                   maxLines: widget.expands ? null : 1,
@@ -83,8 +87,12 @@ class _CustomInputState extends State<CustomInput> {
                       borderRadius: BorderRadius.all(Radius.circular(15.r)),
                       borderSide: BorderSide.none,
                     ),
+                    errorText: widget.errorMessage,
+                    errorStyle: TextStyle(
+                      fontSize: 8.h,
+                      overflow: TextOverflow.visible,
+                    ),
                   ),
-                  onChanged: widget.onChange,
                 );
               }),
         ),

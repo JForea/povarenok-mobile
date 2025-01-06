@@ -15,15 +15,47 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String username = '';
-  String password = '';
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
 
   late FocusNode focusUsername = FocusNode();
   late FocusNode focusPassword = FocusNode();
 
+  int usernameStatus = 0;
+  int passwordStatus = 0;
+
+  Map<int, String?> usernameMessages = {
+    0: null,
+    1: 'Поле не может быть пустым',
+    2: 'Логин не может быть короче 5 символов',
+    3: 'Логин не может быть длиннее 32 символов',
+    4: 'Неверный логин или пароль'
+  };
+
+  Map<int, String?> passwordMessages = {
+    0: null,
+    1: 'Поле не может быть пустым',
+    2: 'Пароль не может быть короче 5 символов',
+    3: 'Пароль не может быть длиннее 32 символов',
+  };
+
   void unfocus() {
     focusUsername.unfocus();
     focusPassword.unfocus();
+  }
+
+  int validate(TextEditingController controller) {
+    if (controller.text.isEmpty) {
+      return 1;
+    }
+    if (controller.text.length < 5) {
+      return 2;
+    }
+    if (controller.text.length > 32) {
+      return 3;
+    }
+
+    return 0;
   }
 
   @override
@@ -59,40 +91,48 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(height: 110.h),
                   CustomInput(
-                    width: 260.w,
+                    width: 280.w,
                     title: 'Логин',
                     obscureText: false,
                     expands: false,
-                    onChange: (val) => setState(() {
-                      username = val;
-                    }),
+                    errorMessage: usernameMessages[usernameStatus],
                     focusNode: focusUsername,
+                    controller: usernameController,
                   ),
                   SizedBox(
-                    height: 20.h,
+                    height: 5.h,
                   ),
                   CustomInput(
-                    width: 260.w,
+                    width: 280.w,
                     title: 'Пароль',
                     obscureText: true,
                     expands: false,
-                    onChange: (val) => setState(() {
-                      password = val;
-                    }),
+                    errorMessage: passwordMessages[passwordStatus],
                     focusNode: focusPassword,
+                    controller: passwordController,
                   ),
                   SizedBox(
                     height: 110.h,
                   ),
                   CustomButton(
                     onTap: () async {
-                      bool loggedIn = await userModel.login(
-                        //username: username, password: password);
-                        username: 'testuser',
-                        password: '12345678',
-                      );
-                      if (loggedIn && context.mounted) {
-                        Navigator.of(context).pushReplacementNamed('/home');
+                      setState(() {
+                        usernameStatus = validate(passwordController);
+                        passwordStatus = validate(passwordController);
+                      });
+                      if (passwordStatus == 0 && passwordStatus == 0) {
+                        bool loggedIn = await userModel.login(
+                            username: usernameController.text,
+                            password: passwordController.text);
+                        if (loggedIn && context.mounted) {
+                          Navigator.of(context).pushReplacementNamed('/home');
+                        } else {
+                          setState(() {
+                            usernameStatus = 4;
+                            passwordStatus = 0;
+                            passwordController.clear();
+                          });
+                        }
                       }
                     },
                     title: 'Войти',

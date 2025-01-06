@@ -13,11 +13,16 @@ import 'package:povarenok_mobile/ui/pages/main_pages/unauthorized_page.dart';
 import 'package:provider/provider.dart';
 
 class IngredientInput {
-  Ingredient ingredient;
   FocusNode focusName = FocusNode();
   FocusNode focusCount = FocusNode();
 
-  IngredientInput(this.ingredient);
+  final nameController = TextEditingController();
+  final countController = TextEditingController();
+
+  int nameStatus = 0;
+  int countStatus = 0;
+
+  IngredientInput();
 }
 
 class RedactorPage extends StatefulWidget {
@@ -28,7 +33,7 @@ class RedactorPage extends StatefulWidget {
 }
 
 class _RedactorPageState extends State<RedactorPage> {
-  Recipe recipe = Recipe.create();
+  //Recipe recipe = Recipe.create();
   List<IngredientInput> ingredientInputs = [];
 
   FocusNode focusName = FocusNode();
@@ -36,6 +41,53 @@ class _RedactorPageState extends State<RedactorPage> {
   FocusNode focusDescription = FocusNode();
   FocusNode focusTime = FocusNode();
   FocusNode focusManual = FocusNode();
+
+  final nameController = TextEditingController();
+  final urlController = TextEditingController();
+  final descriptionController = TextEditingController();
+  final timeController = TextEditingController();
+  final manualController = TextEditingController();
+
+  int nameStatus = 0;
+  int urlStatus = 0;
+  int descriptionStatus = 0;
+  int timeStatus = 0;
+  int manualStatus = 0;
+
+  Map<int, String?> nameMessages = {
+    0: null,
+    1: 'Поле не может быть пустым',
+    2: 'Название не может быть длиннее 128 символов',
+  };
+
+  Map<int, String?> urlMessages = {
+    0: null,
+    1: 'Ссылка не может быть длиннее 512 символов',
+  };
+
+  Map<int, String?> descriptionMessages = {
+    0: null,
+    1: 'Поле не может быть пустым',
+    2: 'Описание не может быть длиннее 2048 символов',
+  };
+
+  Map<int, String?> manualMessages = {
+    0: null,
+    1: 'Поле не может быть пустым',
+    2: 'Приготовление не может быть длиннее 2048 символов',
+  };
+
+  Map<int, String?> timeMessages = {
+    0: null,
+    1: 'Поле не может быть пустым',
+    2: 'Время приготовления не может быть настолько большим',
+  };
+
+  Map<int, String?> countMessages = {
+    0: null,
+    1: 'Поле не может быть пустым',
+    2: 'Количество не может быть длиннее 128 символов',
+  };
 
   void unfocus() {
     focusName.unfocus();
@@ -79,44 +131,43 @@ class _RedactorPageState extends State<RedactorPage> {
                           CustomInput(
                             width: 390.w,
                             title: 'Название',
-                            onChange: (s) => recipe.name = s,
                             obscureText: false,
                             expands: false,
                             focusNode: focusName,
+                            controller: nameController,
+                            errorMessage: nameMessages[nameStatus],
                           ),
                           SizedBox(height: 12.h),
                           CustomInput(
                             width: 390.w,
                             title: 'Ссылка на изображение',
-                            onChange: (s) => recipe.img = s,
                             obscureText: false,
                             expands: false,
                             focusNode: focusUrl,
+                            controller: urlController,
+                            errorMessage: urlMessages[urlStatus],
                           ),
                           SizedBox(height: 12.h),
                           CustomInput(
                             width: 390.w,
                             title: 'Описание',
-                            onChange: (s) => recipe.description = s,
                             obscureText: false,
                             expands: true,
                             focusNode: focusDescription,
+                            controller: descriptionController,
+                            errorMessage:
+                                descriptionMessages[descriptionStatus],
                           ),
                           SizedBox(height: 12.h),
                           CustomInput(
                             width: 390.w,
                             title: 'Время приготовления',
-                            onChange: (s) {
-                              if (s.isNotEmpty) {
-                                recipe.time = int.parse(s);
-                              } else {
-                                recipe.time = null;
-                              }
-                            },
                             obscureText: false,
                             expands: false,
                             keyboardType: TextInputType.number,
                             focusNode: focusTime,
+                            controller: timeController,
+                            errorMessage: timeMessages[timeStatus],
                           ),
                           SizedBox(height: 18.h),
                           Row(
@@ -135,8 +186,7 @@ class _RedactorPageState extends State<RedactorPage> {
                               TextButton.icon(
                                 onPressed: () => setState(
                                   () => ingredientInputs.add(
-                                    IngredientInput(
-                                        Ingredient(name: '', count: '')),
+                                    IngredientInput(),
                                   ),
                                 ),
                                 label: Icon(
@@ -159,22 +209,24 @@ class _RedactorPageState extends State<RedactorPage> {
                                 children: [
                                   CustomInput(
                                     title: 'Название',
-                                    onChange: (s) =>
-                                        ingredientInput.ingredient.name = s,
                                     obscureText: false,
                                     focusNode: ingredientInput.focusName,
                                     expands: false,
                                     width: 160.w,
+                                    controller: ingredientInput.nameController,
+                                    errorMessage: nameMessages[
+                                        ingredientInput.nameStatus],
                                   ),
                                   SizedBox(width: 10.w),
                                   CustomInput(
                                     title: 'Количество',
-                                    onChange: (s) =>
-                                        ingredientInput.ingredient.count = s,
                                     obscureText: false,
                                     focusNode: ingredientInput.focusCount,
                                     expands: false,
                                     width: 160.w,
+                                    controller: ingredientInput.countController,
+                                    errorMessage: nameMessages[
+                                        ingredientInput.countStatus],
                                   ),
                                   SizedBox(width: 5.w),
                                   TextButton.icon(
@@ -198,18 +250,23 @@ class _RedactorPageState extends State<RedactorPage> {
                           CustomInput(
                             width: 390.w,
                             title: 'Способ приготовления',
-                            onChange: (s) => recipe.manual = s,
                             obscureText: false,
                             expands: true,
                             focusNode: focusManual,
+                            controller: manualController,
+                            errorMessage: manualMessages[manualStatus],
                           ),
                           SizedBox(height: 36.h),
                           CustomButton(
                             innerColor: true,
                             onTap: () async {
+                              Recipe recipe = Recipe.create();
                               List<Ingredient> ingredients = [];
                               for (var ingredientInput in ingredientInputs) {
-                                ingredients.add(ingredientInput.ingredient);
+                                ingredients.add(Ingredient(
+                                    name: ingredientInput.nameController.text,
+                                    count:
+                                        ingredientInput.countController.text));
                               }
                               recipe.ingredients = ingredients;
                               await user.addRecipe(recipe);
