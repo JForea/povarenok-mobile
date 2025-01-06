@@ -15,11 +15,6 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
-  String email = '';
-  String username = '';
-  String password = '';
-  String passwordConfirmation = '';
-
   final emailController = TextEditingController();
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
@@ -211,9 +206,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           passwordStatus == 0 &&
                           emailStatus == 0) {
                         bool loggedIn = await userModel.register(
-                          username: username,
-                          password: password,
-                          email: email,
+                          username: usernameController.text,
+                          password: passwordController.text,
+                          email: emailController.text,
                         );
                         if (loggedIn && context.mounted) {
                           Navigator.of(context).pushReplacementNamed('/home');

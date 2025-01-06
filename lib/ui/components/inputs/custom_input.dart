@@ -61,7 +61,7 @@ class _CustomInputState extends State<CustomInput> {
           ),
         SizedBox(
           width: widget.width,
-          height: 65.h,
+          height: widget.expands ? null : 65.h,
           child: ValueListenableBuilder(
               valueListenable: _myFocusNotifier,
               builder: (_, isFocused, child) {

@@ -158,7 +158,7 @@ class _RedactorPageState extends State<RedactorPage> {
                             errorMessage:
                                 descriptionMessages[descriptionStatus],
                           ),
-                          SizedBox(height: 12.h),
+                          SizedBox(height: 30.h),
                           CustomInput(
                             width: 390.w,
                             title: 'Время приготовления',
@@ -261,6 +261,11 @@ class _RedactorPageState extends State<RedactorPage> {
                             innerColor: true,
                             onTap: () async {
                               Recipe recipe = Recipe.create();
+                              recipe.name = nameController.text;
+                              recipe.img = urlController.text;
+                              recipe.description = descriptionController.text;
+                              recipe.time = int.parse(timeController.text);
+                              recipe.manual = manualController.text;
                               List<Ingredient> ingredients = [];
                               for (var ingredientInput in ingredientInputs) {
                                 ingredients.add(Ingredient(

@@ -5,6 +5,7 @@ import 'package:povarenok_mobile/entities/category.dart';
 import 'package:povarenok_mobile/entities/recipe.dart';
 import 'package:povarenok_mobile/http/models/recipes_model.dart';
 import 'package:povarenok_mobile/ui/components/buttons/like_button.dart';
+import 'package:povarenok_mobile/utilts/convert_time.dart';
 
 class RecipeDetailsPage extends StatelessWidget {
   final Recipe recipe;
@@ -91,7 +92,7 @@ class RecipeDetailsPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          'около ${recipe.time} минут',
+                          'около ${convertTime(recipe.time!)}',
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.onSurface,
                               fontSize: 12.h),
