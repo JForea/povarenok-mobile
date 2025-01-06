@@ -21,29 +21,31 @@ class _RecipeListState extends State<RecipeList> {
     return Consumer2<RecipesModel, UserModel>(
       builder: (context, recipes, user, child) {
         return SingleChildScrollView(
-          child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 15.h, left: 10.w),
-                  child: const CategorySwitcher(),
-                ),
-                Column(children: [
-                  for (var r in List.generate(
-                    widget.recipeIds.length,
-                    (i) => Padding(
-                      padding: EdgeInsets.only(top: 15.h),
-                      child: RecipeBlock(
-                        recipe: recipes.getRecipe(widget.recipeIds[i])!,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 15.h, left: 25.w),
+                child: const CategorySwitcher(),
+              ),
+              Center(
+                child: Column(
+                  children: [
+                    for (var r in List.generate(
+                      widget.recipeIds.length,
+                      (i) => Padding(
+                        padding: EdgeInsets.only(top: 15.h),
+                        child: RecipeBlock(
+                          recipe: recipes.getRecipe(widget.recipeIds[i])!,
+                        ),
                       ),
-                    ),
-                  ))
-                    r,
-                  SizedBox(height: 12.h),
-                ])
-              ],
-            ),
+                    ))
+                      r,
+                    SizedBox(height: 12.h),
+                  ],
+                ),
+              ),
+            ],
           ),
         );
       },

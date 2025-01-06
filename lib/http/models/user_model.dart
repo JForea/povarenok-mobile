@@ -18,7 +18,7 @@ class UserModel extends ChangeNotifier {
       'password': password,
     };
     final response =
-        await http.post(Uri.parse('$trueURL/api/auth/login'), body: body);
+        await http.post(Uri.parse('$baseURL/api/auth/login'), body: body);
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
       _user =
@@ -45,7 +45,7 @@ class UserModel extends ChangeNotifier {
       'email': email
     };
     final response =
-        await http.post(Uri.parse('$trueURL/api/auth/register'), body: body);
+        await http.post(Uri.parse('$baseURL/api/auth/register'), body: body);
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
       _user = User(email: email, username: username, isAdmin: false);
@@ -61,7 +61,7 @@ class UserModel extends ChangeNotifier {
 
   Future<bool> updateProfileInfo() async {
     Map<String, String> headers = {'Cookie': _user.token};
-    final response = await http.get(Uri.parse('$trueURL/api/user/profile'),
+    final response = await http.get(Uri.parse('$baseURL/api/user/profile'),
         headers: headers);
     if (response.statusCode >= 200 && response.statusCode < 300) {
       var jsonData = json.decode(utf8.decode(response.bodyBytes))['data'];
@@ -85,7 +85,7 @@ class UserModel extends ChangeNotifier {
   Future<void> addToFavourite(int id) async {
     Map<String, String> headers = {'Cookie': _user.token};
     final response = await http
-        .post(Uri.parse('$trueURL/api/recipe/$id/favourite'), headers: headers);
+        .post(Uri.parse('$baseURL/api/recipe/$id/favourite'), headers: headers);
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
       if (_user.favourites.contains(id)) {
@@ -102,7 +102,7 @@ class UserModel extends ChangeNotifier {
     var body = recipe.toJson();
     Map<String, String> headers = {'Cookie': _user.token};
     var response = await http.post(
-      Uri.parse('$trueURL/api/recipe'),
+      Uri.parse('$baseURL/api/recipe'),
       body: body,
       headers: headers,
     );
@@ -117,7 +117,7 @@ class UserModel extends ChangeNotifier {
   Future<void> deleteRecipe(int recipeId) async {
     Map<String, String> headers = {'Cookie': _user.token};
     await http.delete(
-      Uri.parse('$trueURL/api/recipe/$recipeId'),
+      Uri.parse('$baseURL/api/recipe/$recipeId'),
       headers: headers,
     );
   }

@@ -44,7 +44,7 @@ class RecipesModel extends ChangeNotifier {
   }
 
   Future<void> update(categoryID) async {
-    String req = '$trueURL/api/recipe';
+    String req = '$baseURL/api/recipe';
 
     final response = await http.get(Uri.parse(req));
 

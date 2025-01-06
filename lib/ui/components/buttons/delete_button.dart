@@ -66,7 +66,6 @@ class DeleteButton extends StatelessWidget {
                         },
                         style: TextButton.styleFrom(
                           backgroundColor: const Color(0xFFFF7259),
-                          padding: EdgeInsets.symmetric(horizontal: 10.w),
                         ),
                         child: const Text(
                           'Удалить',
