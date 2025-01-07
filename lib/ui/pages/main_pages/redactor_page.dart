@@ -398,9 +398,9 @@ class _RedactorPageState extends State<RedactorPage> {
                                 }
 
                                 clear();
-
-                                setState(() {});
                               }
+
+                              setState(() {});
                             },
                             title: 'Создать',
                             border: false,
