@@ -131,6 +131,7 @@ class UserModel extends ChangeNotifier {
       Uri.parse('$baseURL/api/recipe/$recipeId'),
       headers: headers,
     );
+    _user.favourites.remove(recipeId);
   }
 
   //Future<void> logout() {}
