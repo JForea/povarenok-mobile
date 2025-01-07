@@ -11,6 +11,7 @@ import 'package:povarenok_mobile/http/models/user_model.dart';
 import 'package:povarenok_mobile/ui/components/buttons/custom_button.dart';
 import 'package:povarenok_mobile/ui/components/custom_appbar.dart';
 import 'package:povarenok_mobile/ui/components/inputs/custom_input.dart';
+import 'package:povarenok_mobile/ui/components/modals/create_notification.dart';
 import 'package:povarenok_mobile/ui/pages/main_pages/unauthorized_page.dart';
 import 'package:provider/provider.dart';
 
@@ -102,6 +103,17 @@ class _RedactorPageState extends State<RedactorPage> {
       ing.focusName.unfocus();
       ing.focusCount.unfocus();
     }
+  }
+
+  void clear() {
+    nameController.clear();
+    urlController.clear();
+    descriptionController.clear();
+    timeController.clear();
+    manualController.clear();
+    setState(() {
+      ingredientInputs.clear();
+    });
   }
 
   int validateName() {
@@ -336,35 +348,31 @@ class _RedactorPageState extends State<RedactorPage> {
                             innerColor: true,
                             onTap: () async {
                               int status = 0;
-
-                              setState(() {
-                                nameStatus = validateName();
-                                status = max(status, nameStatus);
-                                urlStatus = validateUrl();
-                                status = max(status, urlStatus);
-                                descriptionStatus = validateDescription();
-                                status = max(status, descriptionStatus);
-                                timeStatus = validateTime();
-                                status = max(status, timeStatus);
-                                manualStatus = validateManual();
-                                status = max(status, manualStatus);
-                                for (var ingredientInput in ingredientInputs) {
-                                  ingredientInput.nameStatus =
-                                      validateIngredient(
-                                          ingredientInput.nameController);
-                                  status =
-                                      max(status, ingredientInput.nameStatus);
-                                  ingredientInput.countStatus =
-                                      validateIngredient(
-                                          ingredientInput.countController);
-                                  status =
-                                      max(status, ingredientInput.countStatus);
-                                }
-                                if (ingredientInputs.isEmpty) {
-                                  noIngredients = true;
-                                  status = 1;
-                                }
-                              });
+                              nameStatus = validateName();
+                              status = max(status, nameStatus);
+                              urlStatus = validateUrl();
+                              status = max(status, urlStatus);
+                              descriptionStatus = validateDescription();
+                              status = max(status, descriptionStatus);
+                              timeStatus = validateTime();
+                              status = max(status, timeStatus);
+                              manualStatus = validateManual();
+                              status = max(status, manualStatus);
+                              for (var ingredientInput in ingredientInputs) {
+                                ingredientInput.nameStatus = validateIngredient(
+                                    ingredientInput.nameController);
+                                status =
+                                    max(status, ingredientInput.nameStatus);
+                                ingredientInput.countStatus =
+                                    validateIngredient(
+                                        ingredientInput.countController);
+                                status =
+                                    max(status, ingredientInput.countStatus);
+                              }
+                              if (ingredientInputs.isEmpty) {
+                                noIngredients = true;
+                                status = 1;
+                              }
 
                               if (status == 0) {
                                 Recipe recipe = Recipe.create();
@@ -384,6 +392,14 @@ class _RedactorPageState extends State<RedactorPage> {
                                 await user.addRecipe(recipe);
                                 recipesModel
                                     .update(categoriesModel.currentCategory);
+
+                                if (context.mounted) {
+                                  showCreateNotification(context);
+                                }
+
+                                clear();
+
+                                setState(() {});
                               }
                             },
                             title: 'Создать',
