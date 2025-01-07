@@ -1,5 +1,5 @@
 name: povarenok_mobile
-description: "A new Flutter project."
+description: "Мобильное приложение сервиса для поиска и обмена рецептами Шеф-поварёнок."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
@@ -32,6 +32,7 @@ dependencies:
   popover: ^0.3.1
   google_nav_bar: ^5.0.7
   cached_network_image: ^3.4.1
+  flutter_launcher_icons: ^0.14.2
 
 dev_dependencies:
   flutter_test:
@@ -66,3 +67,4 @@ flutter:
   assets:
     - assets/icons/logo.svg
     - assets/icons/sad.svg
+    - assets/icons/logo.png

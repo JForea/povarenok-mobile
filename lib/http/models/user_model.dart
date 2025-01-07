@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:povarenok_mobile/entities/recipe.dart';
 import 'package:povarenok_mobile/entities/user.dart';
-import 'package:povarenok_mobile/http/base_url.dart';
+import 'package:povarenok_mobile/secret/base_url.dart';
 import 'package:http/http.dart' as http;
 
 class UserModel extends ChangeNotifier {

@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:povarenok_mobile/entities/category.dart';
 
 import 'package:povarenok_mobile/entities/recipe.dart';
-import 'package:povarenok_mobile/http/base_url.dart';
+import 'package:povarenok_mobile/secret/base_url.dart';
 
 Map<int, JsonCategory> idCategory = {
   0: const JsonCategory(id: 0, title: '', color: 0xFFFFFFFF),
