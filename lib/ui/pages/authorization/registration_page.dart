@@ -196,10 +196,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         usernameStatus = validateUsername();
                         passwordStatus = validatePassword();
                         emailStatus = validateEmail();
-
-                        if (passwordStatus == 4) {
-                          passwordConfirmationController.clear();
-                        }
                       });
 
                       if (usernameStatus == 0 &&

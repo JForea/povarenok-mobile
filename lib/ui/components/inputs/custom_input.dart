@@ -90,7 +90,6 @@ class _CustomInputState extends State<CustomInput> {
                     errorText: widget.errorMessage,
                     errorStyle: TextStyle(
                       fontSize: 8.h,
-                      overflow: TextOverflow.visible,
                     ),
                   ),
                 );

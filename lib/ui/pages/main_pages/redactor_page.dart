@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -35,6 +37,7 @@ class RedactorPage extends StatefulWidget {
 class _RedactorPageState extends State<RedactorPage> {
   //Recipe recipe = Recipe.create();
   List<IngredientInput> ingredientInputs = [];
+  bool noIngredients = false;
 
   FocusNode focusName = FocusNode();
   FocusNode focusUrl = FocusNode();
@@ -83,10 +86,10 @@ class _RedactorPageState extends State<RedactorPage> {
     2: 'Время приготовления не может быть настолько большим',
   };
 
-  Map<int, String?> countMessages = {
+  Map<int, String?> ingredientMessages = {
     0: null,
-    1: 'Поле не может быть пустым',
-    2: 'Количество не может быть длиннее 128 символов',
+    1: 'Пустое поле',
+    2: 'Не более 128 символов',
   };
 
   void unfocus() {
@@ -99,6 +102,69 @@ class _RedactorPageState extends State<RedactorPage> {
       ing.focusName.unfocus();
       ing.focusCount.unfocus();
     }
+  }
+
+  int validateName() {
+    if (nameController.text.isEmpty) {
+      return 1;
+    }
+    if (nameController.text.length > 128) {
+      return 2;
+    }
+
+    return 0;
+  }
+
+  int validateUrl() {
+    if (urlController.text.length > 512) {
+      return 2;
+    }
+
+    return 0;
+  }
+
+  int validateDescription() {
+    if (descriptionController.text.isEmpty) {
+      return 1;
+    }
+    if (descriptionController.text.length > 2048) {
+      return 2;
+    }
+
+    return 0;
+  }
+
+  int validateManual() {
+    if (descriptionController.text.isEmpty) {
+      return 1;
+    }
+    if (descriptionController.text.length > 2048) {
+      return 2;
+    }
+
+    return 0;
+  }
+
+  int validateTime() {
+    if (timeController.text.isEmpty) {
+      return 1;
+    }
+    if (int.parse(timeController.text) > 10e9) {
+      return 2;
+    }
+
+    return 0;
+  }
+
+  int validateIngredient(TextEditingController controller) {
+    if (controller.text.isEmpty) {
+      return 1;
+    }
+    if (controller.text.length > 128) {
+      return 2;
+    }
+
+    return 0;
   }
 
   @override
@@ -185,9 +251,12 @@ class _RedactorPageState extends State<RedactorPage> {
                               SizedBox(width: 6.w),
                               TextButton.icon(
                                 onPressed: () => setState(
-                                  () => ingredientInputs.add(
-                                    IngredientInput(),
-                                  ),
+                                  () {
+                                    ingredientInputs.add(
+                                      IngredientInput(),
+                                    );
+                                    noIngredients = false;
+                                  },
                                 ),
                                 label: Icon(
                                   CupertinoIcons.add,
@@ -200,12 +269,18 @@ class _RedactorPageState extends State<RedactorPage> {
                               ),
                             ],
                           ),
+                          if (noIngredients)
+                            Text(
+                              'В рецепте должен быть хотя бы 1 ингредиент',
+                              style:
+                                  TextStyle(fontSize: 8.h, color: Colors.red),
+                            ),
                           for (var ingredientInput in ingredientInputs)
                             Padding(
                               padding: EdgeInsets.only(top: 12.h),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   CustomInput(
                                     title: 'Название',
@@ -214,7 +289,7 @@ class _RedactorPageState extends State<RedactorPage> {
                                     expands: false,
                                     width: 160.w,
                                     controller: ingredientInput.nameController,
-                                    errorMessage: nameMessages[
+                                    errorMessage: ingredientMessages[
                                         ingredientInput.nameStatus],
                                   ),
                                   SizedBox(width: 10.w),
@@ -225,7 +300,7 @@ class _RedactorPageState extends State<RedactorPage> {
                                     expands: false,
                                     width: 160.w,
                                     controller: ingredientInput.countController,
-                                    errorMessage: nameMessages[
+                                    errorMessage: ingredientMessages[
                                         ingredientInput.countStatus],
                                   ),
                                   SizedBox(width: 5.w),
@@ -260,23 +335,56 @@ class _RedactorPageState extends State<RedactorPage> {
                           CustomButton(
                             innerColor: true,
                             onTap: () async {
-                              Recipe recipe = Recipe.create();
-                              recipe.name = nameController.text;
-                              recipe.img = urlController.text;
-                              recipe.description = descriptionController.text;
-                              recipe.time = int.parse(timeController.text);
-                              recipe.manual = manualController.text;
-                              List<Ingredient> ingredients = [];
-                              for (var ingredientInput in ingredientInputs) {
-                                ingredients.add(Ingredient(
-                                    name: ingredientInput.nameController.text,
-                                    count:
-                                        ingredientInput.countController.text));
+                              int status = 0;
+
+                              setState(() {
+                                nameStatus = validateName();
+                                status = max(status, nameStatus);
+                                urlStatus = validateUrl();
+                                status = max(status, urlStatus);
+                                descriptionStatus = validateDescription();
+                                status = max(status, descriptionStatus);
+                                timeStatus = validateTime();
+                                status = max(status, timeStatus);
+                                manualStatus = validateManual();
+                                status = max(status, manualStatus);
+                                for (var ingredientInput in ingredientInputs) {
+                                  ingredientInput.nameStatus =
+                                      validateIngredient(
+                                          ingredientInput.nameController);
+                                  status =
+                                      max(status, ingredientInput.nameStatus);
+                                  ingredientInput.countStatus =
+                                      validateIngredient(
+                                          ingredientInput.countController);
+                                  status =
+                                      max(status, ingredientInput.countStatus);
+                                }
+                                if (ingredientInputs.isEmpty) {
+                                  noIngredients = true;
+                                  status = 1;
+                                }
+                              });
+
+                              if (status == 0) {
+                                Recipe recipe = Recipe.create();
+                                recipe.name = nameController.text;
+                                recipe.img = urlController.text;
+                                recipe.description = descriptionController.text;
+                                recipe.time = int.parse(timeController.text);
+                                recipe.manual = manualController.text;
+                                List<Ingredient> ingredients = [];
+                                for (var ingredientInput in ingredientInputs) {
+                                  ingredients.add(Ingredient(
+                                      name: ingredientInput.nameController.text,
+                                      count: ingredientInput
+                                          .countController.text));
+                                }
+                                recipe.ingredients = ingredients;
+                                await user.addRecipe(recipe);
+                                recipesModel
+                                    .update(categoriesModel.currentCategory);
                               }
-                              recipe.ingredients = ingredients;
-                              await user.addRecipe(recipe);
-                              recipesModel
-                                  .update(categoriesModel.currentCategory);
                             },
                             title: 'Создать',
                             border: false,

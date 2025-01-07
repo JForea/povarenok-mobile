@@ -130,7 +130,6 @@ class _LoginPageState extends State<LoginPage> {
                           setState(() {
                             usernameStatus = 4;
                             passwordStatus = 0;
-                            passwordController.clear();
                           });
                         }
                       }
