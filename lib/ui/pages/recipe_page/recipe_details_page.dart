@@ -83,6 +83,7 @@ class RecipeDetailsPage extends StatelessWidget {
                   children: [
                     Text(
                       recipe.name,
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.onSurface,
                           fontSize: 16.h,

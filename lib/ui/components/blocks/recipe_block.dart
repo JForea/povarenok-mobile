@@ -43,46 +43,49 @@ class RecipeBlock extends StatelessWidget {
                     ),
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 9.h),
-                      child: Text(
-                        recipe.name,
-                        style: TextStyle(
-                          fontSize: 14.h,
-                          fontWeight: FontWeight.w700,
-                          color: Theme.of(context).colorScheme.onSecondary,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 9.h, right: 10.w),
+                        child: Text(
+                          recipe.name,
+                          style: TextStyle(
+                            fontSize: 14.h,
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context).colorScheme.onSecondary,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ),
-                    ),
-                    Text(
-                      idCategory[recipe.category] != null
-                          ? idCategory[recipe.category]!.title
-                          : '',
-                      style: TextStyle(
-                        fontSize: 12.h,
-                        color: Color(idCategory[recipe.category] != null
-                            ? idCategory[recipe.category]!.color
-                            : 0),
+                      Text(
+                        idCategory[recipe.category] != null
+                            ? idCategory[recipe.category]!.title
+                            : '',
+                        style: TextStyle(
+                          fontSize: 12.h,
+                          color: Color(idCategory[recipe.category] != null
+                              ? idCategory[recipe.category]!.color
+                              : 0),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 8.h),
-                    Text(
-                      'Время приготовления:',
-                      style: TextStyle(
-                        fontSize: 11.h,
+                      SizedBox(height: 8.h),
+                      Text(
+                        'Время приготовления:',
+                        style: TextStyle(
+                          fontSize: 11.h,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 4.h),
-                    Text(
-                      'Около ${convertTime(recipe.time!)}',
-                      style: TextStyle(
-                        fontSize: 11.h,
+                      SizedBox(height: 4.h),
+                      Text(
+                        'Около ${convertTime(recipe.time!)}',
+                        style: TextStyle(
+                          fontSize: 11.h,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
