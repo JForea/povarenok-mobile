@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:povarenok_mobile/ui/pages/main_pages/favourite_page.dart';
 import 'package:povarenok_mobile/ui/pages/main_pages/profile_page.dart';
-
 import 'package:povarenok_mobile/ui/pages/main_pages/recipes_page.dart';
 import 'package:povarenok_mobile/ui/pages/main_pages/redactor_page.dart';
 

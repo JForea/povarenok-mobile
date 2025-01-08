@@ -36,7 +36,8 @@ class RedactorPage extends StatefulWidget {
 }
 
 class _RedactorPageState extends State<RedactorPage> {
-  //Recipe recipe = Recipe.create();
+  bool creationProcessing = false;
+
   List<IngredientInput> ingredientInputs = [];
   bool noIngredients = false;
 
@@ -347,60 +348,68 @@ class _RedactorPageState extends State<RedactorPage> {
                           CustomButton(
                             innerColor: true,
                             onTap: () async {
-                              int status = 0;
-                              nameStatus = validateName();
-                              status = max(status, nameStatus);
-                              urlStatus = validateUrl();
-                              status = max(status, urlStatus);
-                              descriptionStatus = validateDescription();
-                              status = max(status, descriptionStatus);
-                              timeStatus = validateTime();
-                              status = max(status, timeStatus);
-                              manualStatus = validateManual();
-                              status = max(status, manualStatus);
-                              for (var ingredientInput in ingredientInputs) {
-                                ingredientInput.nameStatus = validateIngredient(
-                                    ingredientInput.nameController);
-                                status =
-                                    max(status, ingredientInput.nameStatus);
-                                ingredientInput.countStatus =
-                                    validateIngredient(
-                                        ingredientInput.countController);
-                                status =
-                                    max(status, ingredientInput.countStatus);
-                              }
-                              if (ingredientInputs.isEmpty) {
-                                noIngredients = true;
-                                status = 1;
-                              }
-
-                              if (status == 0) {
-                                Recipe recipe = Recipe.create();
-                                recipe.name = nameController.text;
-                                recipe.img = urlController.text;
-                                recipe.description = descriptionController.text;
-                                recipe.time = int.parse(timeController.text);
-                                recipe.manual = manualController.text;
-                                List<Ingredient> ingredients = [];
+                              if (!creationProcessing) {
+                                creationProcessing = true;
+                                int status = 0;
+                                nameStatus = validateName();
+                                status = max(status, nameStatus);
+                                urlStatus = validateUrl();
+                                status = max(status, urlStatus);
+                                descriptionStatus = validateDescription();
+                                status = max(status, descriptionStatus);
+                                timeStatus = validateTime();
+                                status = max(status, timeStatus);
+                                manualStatus = validateManual();
+                                status = max(status, manualStatus);
                                 for (var ingredientInput in ingredientInputs) {
-                                  ingredients.add(Ingredient(
-                                      name: ingredientInput.nameController.text,
-                                      count: ingredientInput
-                                          .countController.text));
+                                  ingredientInput.nameStatus =
+                                      validateIngredient(
+                                          ingredientInput.nameController);
+                                  status =
+                                      max(status, ingredientInput.nameStatus);
+                                  ingredientInput.countStatus =
+                                      validateIngredient(
+                                          ingredientInput.countController);
+                                  status =
+                                      max(status, ingredientInput.countStatus);
                                 }
-                                recipe.ingredients = ingredients;
-                                await user.addRecipe(recipe);
-                                recipesModel
-                                    .update(categoriesModel.currentCategory);
-
-                                if (context.mounted) {
-                                  showCreateNotification(context);
+                                if (ingredientInputs.isEmpty) {
+                                  noIngredients = true;
+                                  status = 1;
                                 }
 
-                                clear();
+                                if (status == 0) {
+                                  Recipe recipe = Recipe.create();
+                                  recipe.name = nameController.text;
+                                  recipe.img = urlController.text;
+                                  recipe.description =
+                                      descriptionController.text;
+                                  recipe.time = int.parse(timeController.text);
+                                  recipe.manual = manualController.text;
+                                  List<Ingredient> ingredients = [];
+                                  for (var ingredientInput
+                                      in ingredientInputs) {
+                                    ingredients.add(Ingredient(
+                                        name:
+                                            ingredientInput.nameController.text,
+                                        count: ingredientInput
+                                            .countController.text));
+                                  }
+                                  recipe.ingredients = ingredients;
+                                  await user.addRecipe(recipe);
+                                  recipesModel
+                                      .update(categoriesModel.currentCategory);
+
+                                  if (context.mounted) {
+                                    showCreateNotification(context);
+                                  }
+
+                                  clear();
+                                }
+
+                                creationProcessing = false;
+                                setState(() {});
                               }
-
-                              setState(() {});
                             },
                             title: 'Создать',
                             border: false,

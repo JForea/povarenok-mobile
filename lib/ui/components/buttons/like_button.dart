@@ -14,12 +14,20 @@ class LikeButton extends StatefulWidget {
 }
 
 class _LikeButtonState extends State<LikeButton> {
+  bool processing = false;
+
   @override
   Widget build(BuildContext context) {
     return Consumer<UserModel>(
       builder: (context, user, child) {
         return GestureDetector(
-          onTap: () => user.addToFavourite(widget.id),
+          onTap: () async {
+            if (!processing) {
+              processing = true;
+              await user.addToFavourite(widget.id);
+              processing = false;
+            }
+          },
           child: Row(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
